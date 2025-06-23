@@ -3,12 +3,20 @@
 import { useState } from "react";
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import {
+  createInitializeMintInstruction,
   createMint,
   getOrCreateAssociatedTokenAccount,
   mintTo,
   TOKEN_PROGRAM_ID,
+  MINT_SIZE,
+  getMinimumBalanceForRentExemptMint,
 } from "@solana/spl-token";
-import { Keypair, Transaction, SystemProgram } from "@solana/web3.js";
+import {
+  Keypair,
+  Transaction,
+  SystemProgram,
+  LAMPORTS_PER_SOL,
+} from "@solana/web3.js";
 import { Plus, Loader2, Check, AlertCircle, Coins } from "lucide-react";
 import { useTokenContext } from "../dashboard/page";
 
@@ -58,37 +66,69 @@ export default function TokenCreator() {
     try {
       console.log("Creating token on Solana blockchain...");
 
-      // Create mint account
-      const mint = await createMint(
-        connection,
-        {
-          publicKey,
-          signTransaction,
-          signAllTransactions: signTransaction ? [signTransaction] : undefined,
-        },
-        publicKey, // mint authority
-        publicKey, // freeze authority (optional)
-        formData.decimals // decimals
+      // Generate a new keypair for the mint
+      const mintKeypair = Keypair.generate();
+
+      // Get minimum balance for rent exemption
+      const lamports = await getMinimumBalanceForRentExemptMint(connection);
+
+      // Create transaction to create the mint account
+      const transaction = new Transaction().add(
+        // Create account instruction
+        SystemProgram.createAccount({
+          fromPubkey: publicKey,
+          newAccountPubkey: mintKeypair.publicKey,
+          space: MINT_SIZE,
+          lamports,
+          programId: TOKEN_PROGRAM_ID,
+        }),
+        // Initialize mint instruction
+        createInitializeMintInstruction(
+          mintKeypair.publicKey,
+          formData.decimals,
+          publicKey, // mint authority
+          publicKey // freeze authority
+        )
       );
 
-      console.log("Mint created successfully:", mint.toString());
+      // Get recent blockhash
+      const { blockhash } = await connection.getLatestBlockhash();
+      transaction.recentBlockhash = blockhash;
+      transaction.feePayer = publicKey;
 
-      // Create associated token account for the user
-      const tokenAccount = await getOrCreateAssociatedTokenAccount(
-        connection,
-        {
-          publicKey,
-          signTransaction,
-          signAllTransactions: signTransaction ? [signTransaction] : undefined,
-        },
-        mint,
-        publicKey
+      // Sign with mint keypair first
+      transaction.partialSign(mintKeypair);
+
+      // Sign with wallet
+      const signedTransaction = await signTransaction(transaction);
+
+      // Send transaction
+      const signature = await connection.sendRawTransaction(
+        signedTransaction.serialize()
+      );
+      await connection.confirmTransaction(signature, "confirmed");
+
+      console.log(
+        "Mint created successfully:",
+        mintKeypair.publicKey.toString()
       );
 
-      console.log("Token account created:", tokenAccount.address.toString());
-
-      // Mint initial supply to the user's token account if specified
+      // Create associated token account for the user if initial supply > 0
+      let tokenAccount = null;
       if (formData.initialSupply > 0) {
+        tokenAccount = await getOrCreateAssociatedTokenAccount(
+          connection,
+          {
+            publicKey,
+            signTransaction,
+          },
+          mintKeypair.publicKey,
+          publicKey
+        );
+
+        console.log("Token account created:", tokenAccount.address.toString());
+
+        // Mint initial supply to the user's token account
         const mintAmount =
           formData.initialSupply * Math.pow(10, formData.decimals);
 
@@ -97,11 +137,8 @@ export default function TokenCreator() {
           {
             publicKey,
             signTransaction,
-            signAllTransactions: signTransaction
-              ? [signTransaction]
-              : undefined,
           },
-          mint,
+          mintKeypair.publicKey,
           tokenAccount.address,
           publicKey, // mint authority
           mintAmount
@@ -117,7 +154,7 @@ export default function TokenCreator() {
         decimals: formData.decimals,
         initialSupply: formData.initialSupply,
         description: formData.description,
-        mintAddress: mint.toString(),
+        mintAddress: mintKeypair.publicKey.toString(),
         balance: formData.initialSupply,
         type: "blockchain", // Mark as real blockchain token
       });
@@ -125,9 +162,9 @@ export default function TokenCreator() {
       // Show success message
       setSuccess({
         message: "Token created successfully on Solana blockchain!",
-        mintAddress: mint.toString(),
-        tokenAccount: tokenAccount.address.toString(),
-        explorerUrl: `https://explorer.solana.com/address/${mint.toString()}?cluster=devnet`,
+        mintAddress: mintKeypair.publicKey.toString(),
+        tokenAccount: tokenAccount ? tokenAccount.address.toString() : null,
+        explorerUrl: `https://explorer.solana.com/address/${mintKeypair.publicKey.toString()}?cluster=devnet`,
         note: "This is a real token created on Solana Devnet blockchain",
       });
 

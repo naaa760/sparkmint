@@ -102,7 +102,6 @@ export default function TokenMinter() {
         {
           publicKey,
           signTransaction,
-          signAllTransactions: signTransaction ? [signTransaction] : undefined,
         },
         mintPublicKey,
         recipientPublicKey
@@ -119,7 +118,6 @@ export default function TokenMinter() {
         {
           publicKey,
           signTransaction,
-          signAllTransactions: signTransaction ? [signTransaction] : undefined,
         },
         mintPublicKey,
         recipientTokenAccount.address,

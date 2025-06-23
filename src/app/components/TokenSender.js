@@ -96,7 +96,6 @@ export default function TokenSender() {
         {
           publicKey,
           signTransaction,
-          signAllTransactions: signTransaction ? [signTransaction] : undefined,
         },
         mintPublicKey,
         publicKey
@@ -129,7 +128,6 @@ export default function TokenSender() {
         {
           publicKey,
           signTransaction,
-          signAllTransactions: signTransaction ? [signTransaction] : undefined,
         },
         mintPublicKey,
         recipientPublicKey
@@ -146,7 +144,6 @@ export default function TokenSender() {
         {
           publicKey,
           signTransaction,
-          signAllTransactions: signTransaction ? [signTransaction] : undefined,
         },
         senderTokenAccount.address,
         recipientTokenAccount.address,
