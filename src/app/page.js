@@ -765,6 +765,23 @@ export default function LandingPage() {
             filter: brightness(1.3) contrast(1.2);
           }
         }
+
+        @keyframes scroll-infinite {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+
+        .animate-scroll-infinite {
+          animation: scroll-infinite 30s linear infinite;
+        }
+
+        .animate-scroll-infinite:hover {
+          animation-play-state: paused;
+        }
       `}</style>
 
       {/* Splash Screen */}
@@ -826,65 +843,259 @@ export default function LandingPage() {
           {/* Enhanced Gradient Overlay - Made more transparent to show video */}
           <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-amber-50/30 to-yellow-100/35"></div>
 
-          {/* Spiral Pattern Elements */}
-          {/* Top Left Flowing Curves */}
+          {/* Spiral Pattern Elements - Left Side Only, No Animations */}
+          {/* Top Left Flower Shape */}
           <div
             className="spiral-container"
-            style={{ top: "10%", left: "5%", opacity: 0.8 }}
+            style={{
+              top: "10%",
+              left: "2%",
+              opacity: 1,
+              width: "120px",
+              height: "120px",
+            }}
           >
             <svg
               className="spiral-line-svg"
               viewBox="0 0 200 200"
               style={{ filter: "drop-shadow(0 0 3px rgba(139, 69, 19, 0.3))" }}
             >
+              {/* Flower petals */}
               <path
-                d="M20,20 Q60,40 100,20 Q140,0 180,40 Q220,80 180,120 Q140,160 100,140 Q60,120 20,160"
+                d="M100,100 Q80,60 60,80 Q80,100 100,80 Q120,60 140,80 Q120,100 100,120 Q80,140 60,120 Q80,100 100,100"
                 fill="none"
-                stroke="url(#shining-brown-gradient1)"
-                strokeWidth="1.2"
+                stroke="url(#flower-gradient1)"
+                strokeWidth="2"
                 strokeLinecap="round"
-                style={{
-                  animation:
-                    "spiralLineGrow 8s ease-in-out infinite, metallicShine 3s ease-in-out infinite",
-                }}
               />
+              {/* Inner petals */}
               <path
-                d="M30,180 Q70,160 110,180 Q150,200 190,160"
+                d="M100,100 Q90,85 85,90 Q95,100 100,95 Q110,85 115,90 Q105,100 100,105 Q90,115 85,110 Q95,100 100,100"
                 fill="none"
-                stroke="url(#shining-brown-gradient1)"
-                strokeWidth="1"
+                stroke="url(#flower-gradient1)"
+                strokeWidth="1.5"
                 strokeLinecap="round"
-                style={{
-                  animation:
-                    "spiralLineGrow 10s ease-in-out infinite, metallicShine 4s ease-in-out infinite",
-                  animationDelay: "2s, 1s",
-                }}
               />
+              {/* Center */}
+              <circle cx="100" cy="100" r="4" fill="url(#flower-gradient1)" />
               <defs>
                 <linearGradient
-                  id="shining-brown-gradient1"
+                  id="flower-gradient1"
                   x1="0%"
                   y1="0%"
                   x2="100%"
                   y2="100%"
                 >
-                  <stop offset="0%" stopColor="#3e2723" stopOpacity="0.9" />
+                  <stop offset="0%" stopColor="#3e2723" stopOpacity="1" />
                   <stop offset="15%" stopColor="#5d4037" stopOpacity="1" />
                   <stop offset="30%" stopColor="#8d6e63" stopOpacity="1" />
                   <stop offset="45%" stopColor="#f5f5dc" stopOpacity="1" />
                   <stop offset="60%" stopColor="#fff8dc" stopOpacity="1" />
                   <stop offset="75%" stopColor="#d2b48c" stopOpacity="1" />
-                  <stop offset="90%" stopColor="#8b4513" stopOpacity="0.9" />
-                  <stop offset="100%" stopColor="#654321" stopOpacity="0.8" />
+                  <stop offset="90%" stopColor="#8b4513" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#654321" stopOpacity="1" />
                 </linearGradient>
               </defs>
             </svg>
           </div>
 
-          {/* Top Right Flowing Curves */}
+          {/* Middle Left Daisy Shape */}
           <div
-            className="spiral-dot-container"
-            style={{ top: "15%", right: "8%", opacity: 0.8 }}
+            className="spiral-grid"
+            style={{
+              top: "40%",
+              left: "2%",
+              width: "150px",
+              height: "120px",
+              opacity: 1,
+            }}
+          >
+            <svg
+              width="200"
+              height="120"
+              viewBox="0 0 200 120"
+              style={{ filter: "drop-shadow(0 0 3px rgba(160, 82, 45, 0.4))" }}
+            >
+              {/* Daisy petals */}
+              <path
+                d="M100,60 Q80,40 70,50 Q90,60 100,50 Q120,40 130,50 Q110,60 100,70 Q80,80 70,70 Q90,60 100,60"
+                fill="none"
+                stroke="url(#daisy-gradient)"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+              />
+              {/* Additional petals */}
+              <path
+                d="M60,60 Q40,50 35,55 Q55,65 60,60 M140,60 Q160,50 165,55 Q145,65 140,60"
+                fill="none"
+                stroke="url(#daisy-gradient)"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              {/* Stem */}
+              <path
+                d="M100,70 Q105,90 100,110"
+                fill="none"
+                stroke="url(#daisy-gradient)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+              <defs>
+                <linearGradient
+                  id="daisy-gradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" stopColor="#8b4513" stopOpacity="1" />
+                  <stop offset="20%" stopColor="#a0522d" stopOpacity="1" />
+                  <stop offset="40%" stopColor="#ddbf94" stopOpacity="1" />
+                  <stop offset="60%" stopColor="#f5deb3" stopOpacity="1" />
+                  <stop offset="80%" stopColor="#d2b48c" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#654321" stopOpacity="1" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          {/* Bottom Left Cherry Blossom */}
+          <div
+            style={{
+              bottom: "20%",
+              left: "8%",
+              position: "absolute",
+              opacity: 1,
+              width: "80px",
+              height: "60px",
+            }}
+          >
+            <svg
+              width="120"
+              height="80"
+              viewBox="0 0 120 80"
+              style={{ filter: "drop-shadow(0 0 2px rgba(139, 69, 19, 0.4))" }}
+            >
+              {/* Small cherry blossom */}
+              <path
+                d="M60,40 Q50,30 45,35 Q55,45 60,40 Q70,30 75,35 Q65,45 60,50 Q50,50 45,45 Q55,35 60,40"
+                fill="none"
+                stroke="url(#cherry-gradient)"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <circle cx="60" cy="40" r="3" fill="url(#cherry-gradient)" />
+              <defs>
+                <linearGradient
+                  id="cherry-gradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" stopColor="#d2b48c" stopOpacity="1" />
+                  <stop offset="50%" stopColor="#f5deb3" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#8b4513" stopOpacity="1" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          {/* Small Left Side Accent Flowers */}
+          <div
+            style={{
+              top: "25%",
+              left: "5%",
+              position: "absolute",
+              opacity: 0.7,
+              width: "35px",
+              height: "35px",
+            }}
+          >
+            <svg
+              width="35"
+              height="35"
+              viewBox="0 0 35 35"
+              style={{
+                filter: "drop-shadow(0 0 1px rgba(210, 180, 140, 0.3))",
+              }}
+            >
+              <path
+                d="M17,17 Q12,10 10,12 Q15,20 17,17 Q22,10 25,12 Q20,20 17,22 Q12,22 10,20 Q15,12 17,17"
+                fill="none"
+                stroke="url(#micro-flower2)"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+              />
+              <defs>
+                <linearGradient
+                  id="micro-flower2"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stopColor="#d2b48c" stopOpacity="1" />
+                  <stop offset="50%" stopColor="#fff8dc" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#8d6e63" stopOpacity="1" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <div
+            style={{
+              top: "65%",
+              left: "12%",
+              position: "absolute",
+              opacity: 0.8,
+              width: "45px",
+              height: "45px",
+            }}
+          >
+            <svg
+              width="45"
+              height="45"
+              viewBox="0 0 45 45"
+              style={{
+                filter: "drop-shadow(0 0 1px rgba(139, 69, 19, 0.3))",
+              }}
+            >
+              <path
+                d="M22,22 Q17,13 15,15 Q20,25 22,22 Q27,13 30,15 Q25,25 22,28 Q17,28 15,25 Q20,17 22,22"
+                fill="none"
+                stroke="url(#micro-flower3)"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              />
+              <circle cx="22" cy="22" r="2.5" fill="url(#micro-flower3)" />
+              <defs>
+                <linearGradient
+                  id="micro-flower3"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" stopColor="#5d4037" stopOpacity="1" />
+                  <stop offset="50%" stopColor="#ddbf94" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#654321" stopOpacity="1" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          {/* Right Side Flower Patterns - Mirror of Left Side */}
+          {/* Top Right Rose Shape */}
+          <div
+            style={{
+              top: "10%",
+              right: "2%",
+              opacity: 1,
+              width: "120px",
+              height: "120px",
+              position: "absolute",
+            }}
           >
             <svg
               width="150"
@@ -894,32 +1105,25 @@ export default function LandingPage() {
                 filter: "drop-shadow(0 0 4px rgba(210, 180, 140, 0.4))",
               }}
             >
+              {/* Outer rose petals */}
               <path
-                d="M10,75 Q40,20 75,50 Q110,80 140,30"
+                d="M75,75 Q50,40 30,60 Q40,80 60,70 Q75,50 90,70 Q110,80 120,60 Q100,40 75,75 Q50,110 30,90 Q40,70 60,80 Q75,100 90,80 Q110,70 120,90 Q100,110 75,75"
                 fill="none"
-                stroke="url(#shining-brown-gradient2)"
-                strokeWidth="1.4"
+                stroke="url(#rose-gradient2)"
+                strokeWidth="2.5"
                 strokeLinecap="round"
-                style={{
-                  animation:
-                    "spiralLineGrow 6s ease-in-out infinite, metallicShine 2.5s ease-in-out infinite",
-                }}
               />
+              {/* Inner rose petals */}
               <path
-                d="M20,120 Q50,90 80,120 Q110,150 140,120"
+                d="M75,75 Q65,60 60,65 Q70,75 75,70 Q85,60 90,65 Q80,75 75,80 Q65,90 60,85 Q70,75 75,75"
                 fill="none"
-                stroke="url(#shining-brown-gradient2)"
-                strokeWidth="1.1"
+                stroke="url(#rose-gradient2)"
+                strokeWidth="2"
                 strokeLinecap="round"
-                style={{
-                  animation:
-                    "spiralLineGrow 8s ease-in-out infinite, metallicShine 3.5s ease-in-out infinite",
-                  animationDelay: "1s, 0.5s",
-                }}
               />
               <defs>
                 <linearGradient
-                  id="shining-brown-gradient2"
+                  id="rose-gradient2"
                   x1="0%"
                   y1="0%"
                   x2="100%"
@@ -929,211 +1133,78 @@ export default function LandingPage() {
                   <stop offset="20%" stopColor="#fdcb6e" stopOpacity="1" />
                   <stop offset="40%" stopColor="#e17055" stopOpacity="1" />
                   <stop offset="60%" stopColor="#8b4513" stopOpacity="1" />
-                  <stop offset="80%" stopColor="#5d4037" stopOpacity="0.9" />
-                  <stop offset="100%" stopColor="#3e2723" stopOpacity="0.8" />
+                  <stop offset="80%" stopColor="#5d4037" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#3e2723" stopOpacity="1" />
                 </linearGradient>
               </defs>
             </svg>
           </div>
 
-          {/* Center Large Flowing Curve */}
+          {/* Middle Right Lotus Flower */}
           <div
-            className="spiral-fibonacci"
-            style={{ top: "40%", left: "65%", opacity: 0.7 }}
+            style={{
+              top: "40%",
+              right: "2%",
+              width: "150px",
+              height: "120px",
+              opacity: 1,
+              position: "absolute",
+            }}
           >
             <svg
               className="spiral-fibonacci-svg"
               viewBox="0 0 300 300"
               style={{ filter: "drop-shadow(0 0 5px rgba(139, 69, 19, 0.5))" }}
             >
+              {/* Outer lotus petals */}
               <path
-                d="M50,150 Q100,50 150,100 Q200,150 250,100 Q300,50 350,150 Q300,250 250,200 Q200,150 150,200 Q100,250 50,150"
+                d="M150,150 Q100,80 80,120 Q120,140 140,110 Q150,80 160,110 Q180,140 220,120 Q200,80 150,150 Q100,220 80,180 Q120,160 140,190 Q150,220 160,190 Q180,160 220,180 Q200,220 150,150"
                 fill="none"
-                stroke="url(#large-shining-brown-gradient)"
-                strokeWidth="1.8"
+                stroke="url(#lotus-gradient)"
+                strokeWidth="3"
                 strokeLinecap="round"
-                style={{
-                  animation:
-                    "spiralLineGrow 12s ease-in-out infinite, metallicShine 4s ease-in-out infinite",
-                }}
               />
+              {/* Middle lotus petals */}
               <path
-                d="M80,150 Q120,80 150,120 Q180,160 220,130"
+                d="M150,150 Q120,120 110,130 Q130,140 140,130 Q150,120 160,130 Q170,140 180,130 Q170,120 150,150 Q120,180 110,170 Q130,160 140,170 Q150,180 160,170 Q170,160 180,170 Q170,180 150,150"
                 fill="none"
-                stroke="url(#large-shining-brown-gradient)"
-                strokeWidth="1.2"
+                stroke="url(#lotus-gradient)"
+                strokeWidth="2"
                 strokeLinecap="round"
-                style={{
-                  animation:
-                    "spiralLineGrow 10s ease-in-out infinite, metallicShine 5s ease-in-out infinite",
-                  animationDelay: "3s, 1.5s",
-                }}
               />
+              {/* Center */}
+              <circle cx="150" cy="150" r="6" fill="url(#lotus-gradient)" />
               <defs>
                 <linearGradient
-                  id="large-shining-brown-gradient"
+                  id="lotus-gradient"
                   x1="0%"
                   y1="0%"
                   x2="100%"
                   y2="100%"
                 >
-                  <stop offset="0%" stopColor="#2c1810" stopOpacity="0.9" />
+                  <stop offset="0%" stopColor="#2c1810" stopOpacity="1" />
                   <stop offset="12%" stopColor="#3e2723" stopOpacity="1" />
                   <stop offset="25%" stopColor="#5d4037" stopOpacity="1" />
                   <stop offset="37%" stopColor="#8d6e63" stopOpacity="1" />
                   <stop offset="50%" stopColor="#f5deb3" stopOpacity="1" />
                   <stop offset="62%" stopColor="#fff8dc" stopOpacity="1" />
                   <stop offset="75%" stopColor="#ddbf94" stopOpacity="1" />
-                  <stop offset="87%" stopColor="#a0522d" stopOpacity="0.9" />
-                  <stop offset="100%" stopColor="#654321" stopOpacity="0.8" />
+                  <stop offset="87%" stopColor="#a0522d" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#654321" stopOpacity="1" />
                 </linearGradient>
               </defs>
             </svg>
           </div>
 
-          {/* Bottom Left Flowing Lines */}
+          {/* Bottom Right Sunflower */}
           <div
-            className="spiral-grid"
             style={{
               bottom: "20%",
-              left: "10%",
-              width: "200px",
-              height: "120px",
-              opacity: 0.7,
-            }}
-          >
-            <svg
-              width="200"
-              height="120"
-              viewBox="0 0 200 120"
-              style={{ filter: "drop-shadow(0 0 3px rgba(160, 82, 45, 0.4))" }}
-            >
-              <path
-                d="M0,60 Q50,20 100,60 Q150,100 200,60"
-                fill="none"
-                stroke="url(#bottom-shining-brown-gradient)"
-                strokeWidth="1.2"
-                strokeLinecap="round"
-                style={{
-                  animation:
-                    "spiralLineGrow 7s ease-in-out infinite, metallicShine 3s ease-in-out infinite",
-                }}
-              />
-              <path
-                d="M0,80 Q50,40 100,80 Q150,120 200,80"
-                fill="none"
-                stroke="url(#bottom-shining-brown-gradient)"
-                strokeWidth="1"
-                strokeLinecap="round"
-                style={{
-                  animation:
-                    "spiralLineGrow 9s ease-in-out infinite, metallicShine 4s ease-in-out infinite",
-                  animationDelay: "1.5s, 0.8s",
-                }}
-              />
-              <path
-                d="M0,40 Q50,0 100,40 Q150,80 200,40"
-                fill="none"
-                stroke="url(#bottom-shining-brown-gradient)"
-                strokeWidth="0.8"
-                strokeLinecap="round"
-                style={{
-                  animation:
-                    "spiralLineGrow 11s ease-in-out infinite, metallicShine 3.5s ease-in-out infinite",
-                  animationDelay: "3s, 1.2s",
-                }}
-              />
-              <defs>
-                <linearGradient
-                  id="bottom-shining-brown-gradient"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="0%"
-                >
-                  <stop offset="0%" stopColor="#8b4513" stopOpacity="0.8" />
-                  <stop offset="20%" stopColor="#a0522d" stopOpacity="0.9" />
-                  <stop offset="40%" stopColor="#ddbf94" stopOpacity="1" />
-                  <stop offset="60%" stopColor="#f5deb3" stopOpacity="1" />
-                  <stop offset="80%" stopColor="#d2b48c" stopOpacity="1" />
-                  <stop offset="100%" stopColor="#654321" stopOpacity="0.8" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-
-          {/* Bottom Right Flowing Curves */}
-          <div
-            className="spiral-wave-line"
-            style={{ bottom: "15%", right: "15%", opacity: 0.7 }}
-          >
-            <svg
-              className="spiral-line-svg"
-              viewBox="0 0 250 200"
-              style={{ filter: "drop-shadow(0 0 4px rgba(139, 69, 19, 0.3))" }}
-            >
-              <path
-                d="M0,100 Q60,40 120,100 Q180,160 250,100"
-                fill="none"
-                stroke="url(#wave-shining-brown-gradient)"
-                strokeWidth="1.4"
-                strokeLinecap="round"
-                style={{
-                  animation:
-                    "spiralLineGrow 10s ease-in-out infinite, metallicShine 3.5s ease-in-out infinite",
-                }}
-              />
-              <path
-                d="M20,150 Q80,90 140,150 Q200,210 250,150"
-                fill="none"
-                stroke="url(#wave-shining-brown-gradient)"
-                strokeWidth="1.2"
-                strokeLinecap="round"
-                style={{
-                  animation:
-                    "spiralLineGrow 8s ease-in-out infinite, metallicShine 4s ease-in-out infinite",
-                  animationDelay: "2s, 1s",
-                }}
-              />
-              <path
-                d="M10,50 Q70,10 130,50 Q190,90 250,50"
-                fill="none"
-                stroke="url(#wave-shining-brown-gradient)"
-                strokeWidth="1"
-                strokeLinecap="round"
-                style={{
-                  animation:
-                    "spiralLineGrow 12s ease-in-out infinite, metallicShine 2.8s ease-in-out infinite",
-                  animationDelay: "4s, 0.5s",
-                }}
-              />
-              <defs>
-                <linearGradient
-                  id="wave-shining-brown-gradient"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="100%"
-                >
-                  <stop offset="0%" stopColor="#fff8dc" stopOpacity="1" />
-                  <stop offset="25%" stopColor="#f5deb3" stopOpacity="1" />
-                  <stop offset="50%" stopColor="#daa520" stopOpacity="1" />
-                  <stop offset="75%" stopColor="#8b4513" stopOpacity="0.9" />
-                  <stop offset="100%" stopColor="#5d4037" stopOpacity="0.8" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-
-          {/* Additional Small Flowing Elements */}
-          <div
-            style={{
-              top: "60%",
-              left: "25%",
+              right: "8%",
               position: "absolute",
-              opacity: 0.6,
-              width: "120px",
-              height: "80px",
+              opacity: 1,
+              width: "80px",
+              height: "60px",
             }}
           >
             <svg
@@ -1142,28 +1213,70 @@ export default function LandingPage() {
               viewBox="0 0 120 80"
               style={{ filter: "drop-shadow(0 0 2px rgba(139, 69, 19, 0.4))" }}
             >
+              {/* Sunflower petals */}
               <path
-                d="M0,40 Q30,10 60,40 Q90,70 120,40"
+                d="M60,40 Q50,30 45,35 Q55,45 60,40 Q70,30 75,35 Q65,45 60,50 Q50,50 45,45 Q55,35 60,40"
                 fill="none"
-                stroke="url(#small-shining-brown-gradient)"
-                strokeWidth="1"
+                stroke="url(#sunflower-gradient)"
+                strokeWidth="2"
                 strokeLinecap="round"
-                style={{
-                  animation:
-                    "spiralLineGrow 6s ease-in-out infinite, metallicShine 2.5s ease-in-out infinite",
-                }}
               />
+              <circle cx="60" cy="40" r="3" fill="url(#sunflower-gradient)" />
               <defs>
                 <linearGradient
-                  id="small-shining-brown-gradient"
+                  id="sunflower-gradient"
                   x1="0%"
                   y1="0%"
                   x2="100%"
                   y2="0%"
                 >
-                  <stop offset="0%" stopColor="#d2b48c" stopOpacity="0.9" />
-                  <stop offset="50%" stopColor="#f5deb3" stopOpacity="1" />
-                  <stop offset="100%" stopColor="#8b4513" stopOpacity="0.8" />
+                  <stop offset="0%" stopColor="#fff8dc" stopOpacity="1" />
+                  <stop offset="25%" stopColor="#f5deb3" stopOpacity="1" />
+                  <stop offset="50%" stopColor="#daa520" stopOpacity="1" />
+                  <stop offset="75%" stopColor="#8b4513" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#5d4037" stopOpacity="1" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          {/* Small Right Side Accent Flowers */}
+          <div
+            style={{
+              top: "25%",
+              right: "5%",
+              position: "absolute",
+              opacity: 0.7,
+              width: "35px",
+              height: "35px",
+            }}
+          >
+            <svg
+              width="35"
+              height="35"
+              viewBox="0 0 35 35"
+              style={{
+                filter: "drop-shadow(0 0 1px rgba(210, 180, 140, 0.3))",
+              }}
+            >
+              <path
+                d="M17,17 Q12,10 10,12 Q15,20 17,17 Q22,10 25,12 Q20,20 17,22 Q12,22 10,20 Q15,12 17,17"
+                fill="none"
+                stroke="url(#micro-flower4)"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+              />
+              <defs>
+                <linearGradient
+                  id="micro-flower4"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stopColor="#ffeaa7" stopOpacity="1" />
+                  <stop offset="50%" stopColor="#e17055" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#3e2723" stopOpacity="1" />
                 </linearGradient>
               </defs>
             </svg>
@@ -1171,43 +1284,41 @@ export default function LandingPage() {
 
           <div
             style={{
-              top: "75%",
-              right: "40%",
+              top: "65%",
+              right: "12%",
               position: "absolute",
-              opacity: 0.65,
-              width: "100px",
-              height: "60px",
+              opacity: 0.8,
+              width: "45px",
+              height: "45px",
             }}
           >
             <svg
-              width="100"
-              height="60"
-              viewBox="0 0 100 60"
-              style={{ filter: "drop-shadow(0 0 2px rgba(160, 82, 45, 0.3))" }}
+              width="45"
+              height="45"
+              viewBox="0 0 45 45"
+              style={{
+                filter: "drop-shadow(0 0 1px rgba(139, 69, 19, 0.3))",
+              }}
             >
               <path
-                d="M0,30 Q25,5 50,30 Q75,55 100,30"
+                d="M22,22 Q17,13 15,15 Q20,25 22,22 Q27,13 30,15 Q25,25 22,28 Q17,28 15,25 Q20,17 22,22"
                 fill="none"
-                stroke="url(#tiny-shining-brown-gradient)"
-                strokeWidth="1.1"
+                stroke="url(#micro-flower5)"
+                strokeWidth="1.8"
                 strokeLinecap="round"
-                style={{
-                  animation:
-                    "spiralLineGrow 8s ease-in-out infinite, metallicShine 3s ease-in-out infinite",
-                  animationDelay: "1s, 0.8s",
-                }}
               />
+              <circle cx="22" cy="22" r="2.5" fill="url(#micro-flower5)" />
               <defs>
                 <linearGradient
-                  id="tiny-shining-brown-gradient"
+                  id="micro-flower5"
                   x1="0%"
                   y1="0%"
                   x2="100%"
                   y2="0%"
                 >
-                  <stop offset="0%" stopColor="#654321" stopOpacity="0.9" />
-                  <stop offset="50%" stopColor="#ddbf94" stopOpacity="1" />
-                  <stop offset="100%" stopColor="#a0522d" stopOpacity="0.8" />
+                  <stop offset="0%" stopColor="#a0522d" stopOpacity="1" />
+                  <stop offset="50%" stopColor="#f5deb3" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#654321" stopOpacity="1" />
                 </linearGradient>
               </defs>
             </svg>
@@ -1279,9 +1390,11 @@ export default function LandingPage() {
                     <span
                       className="block mb-2"
                       style={{
-                        fontWeight: "600",
+                        fontWeight: "700",
                         letterSpacing: "-0.02em",
-                        color: "#1f2937",
+                        color: "#1a1a1a",
+                        textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+                        filter: "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2))",
                       }}
                     >
                       New gen of
@@ -1289,13 +1402,11 @@ export default function LandingPage() {
                     <span
                       className="block"
                       style={{
-                        fontWeight: "600",
+                        fontWeight: "700",
                         letterSpacing: "-0.02em",
-                        background:
-                          "linear-gradient(135deg, #1f2937 0%, #374151 25%, #6b7280 50%, #9ca3af 75%, #1f2937 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
+                        color: "#2d1810",
+                        textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+                        filter: "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2))",
                       }}
                     >
                       digital currency
@@ -1303,9 +1414,11 @@ export default function LandingPage() {
                     <span
                       className="block text-3xl lg:text-5xl mt-4"
                       style={{
-                        fontWeight: "600",
+                        fontWeight: "700",
                         letterSpacing: "-0.02em",
-                        color: "#374151",
+                        color: "#4a2c1a",
+                        textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+                        filter: "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2))",
                       }}
                     >
                       creation platform
@@ -1320,14 +1433,14 @@ export default function LandingPage() {
                 </div>
 
                 {/* Enhanced CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-5 pt-6 justify-center">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 pt-6 justify-center items-center">
                   <SignUpButton mode="modal">
-                    <button className="bg-gradient-to-r from-amber-500 via-yellow-500 to-yellow-600 hover:from-amber-600 hover:via-yellow-600 hover:to-yellow-700 text-white px-10 py-5 rounded-2xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-amber-200/40 hover:shadow-3xl hover:shadow-amber-300/50">
+                    <button className="bg-gradient-to-r from-amber-500 via-yellow-500 to-yellow-600 hover:from-amber-600 hover:via-yellow-600 hover:to-yellow-700 text-white px-4 py-2 md:px-8 md:py-4 lg:px-10 lg:py-5 rounded-xl md:rounded-2xl font-medium md:font-semibold text-sm md:text-base lg:text-lg transition-all duration-300 transform hover:scale-105 shadow-xl md:shadow-2xl shadow-amber-200/40 hover:shadow-2xl md:hover:shadow-3xl hover:shadow-amber-300/50 max-w-xs sm:max-w-none">
                       Start Creating Tokens
                     </button>
                   </SignUpButton>
                   <SignInButton mode="modal">
-                    <button className="border-2 border-amber-300 text-gray-700 px-10 py-5 rounded-2xl font-semibold text-lg hover:border-amber-500 hover:bg-amber-50 transition-all duration-300 backdrop-blur-lg shadow-lg hover:shadow-xl transform hover:scale-105">
+                    <button className="border-2 border-amber-300 text-gray-700 px-4 py-2 md:px-8 md:py-4 lg:px-10 lg:py-5 rounded-xl md:rounded-2xl font-medium md:font-semibold text-sm md:text-base lg:text-lg hover:border-amber-500 hover:bg-amber-50 transition-all duration-300 backdrop-blur-lg shadow-md md:shadow-lg hover:shadow-lg md:hover:shadow-xl transform hover:scale-105 max-w-xs sm:max-w-none">
                       Sign In
                     </button>
                   </SignInButton>
@@ -1351,29 +1464,7 @@ export default function LandingPage() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-10">
-              {[
-                {
-                  icon: "🚀",
-                  title: "Instant Creation",
-                  description:
-                    "Create custom SPL tokens in seconds with our intuitive interface and advanced automation",
-                  gradient: "from-amber-500 to-yellow-500",
-                },
-                {
-                  icon: "⚡",
-                  title: "Fast Minting",
-                  description:
-                    "Mint tokens instantly with ultra-low fees on Solana's high-performance network",
-                  gradient: "from-yellow-500 to-emerald-500",
-                },
-                {
-                  icon: "🔐",
-                  title: "Secure Transfers",
-                  description:
-                    "Send tokens securely with military-grade encryption and built-in wallet integration",
-                  gradient: "from-emerald-500 to-teal-500",
-                },
-              ].map((feature, index) => (
+              {[].map((feature, index) => (
                 <div
                   key={index}
                   className="group bg-white/95 backdrop-blur-xl border border-amber-200/70 rounded-3xl p-10 hover:bg-white hover:shadow-2xl hover:shadow-amber-200/30 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2"
@@ -1392,6 +1483,356 @@ export default function LandingPage() {
                   ></div>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Unlock Crypto Rails Section - Outside main container */}
+      <div
+        className="relative z-10 py-32 px-6 rounded-3xl mx-6 lg:mx-12"
+        style={{
+          background:
+            "linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 15%, #2d1b1f 35%, #3d2b2f 55%, #4a2c2a 75%, #5d3a2f 90%, #6b4423 100%)",
+        }}
+      >
+        {/* Star/sparkle decorations */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Corner decorative star elements - Now visible on all screen sizes */}
+
+          {/* Top Left Corner Star Pattern */}
+          <div className="absolute top-3 left-3 md:top-6 md:left-6 opacity-60 md:opacity-80">
+            <div className="relative w-6 h-6 md:w-8 md:h-8">
+              {/* Main star shape */}
+              <div
+                className="absolute inset-0 bg-white"
+                style={{
+                  clipPath:
+                    "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
+                  filter:
+                    "drop-shadow(0 0 4px rgba(255, 255, 255, 0.4)) drop-shadow(0 0 6px rgba(255, 255, 255, 0.6))",
+                }}
+              ></div>
+              {/* Sparkle rays */}
+              <div className="absolute -top-1.5 md:-top-2 left-1/2 w-0.5 h-3 md:h-4 bg-white transform -translate-x-1/2 opacity-50 md:opacity-70"></div>
+              <div className="absolute -bottom-1.5 md:-bottom-2 left-1/2 w-0.5 h-3 md:h-4 bg-white transform -translate-x-1/2 opacity-50 md:opacity-70"></div>
+              <div className="absolute -left-1.5 md:-left-2 top-1/2 w-3 md:w-4 h-0.5 bg-white transform -translate-y-1/2 opacity-50 md:opacity-70"></div>
+              <div className="absolute -right-1.5 md:-right-2 top-1/2 w-3 md:w-4 h-0.5 bg-white transform -translate-y-1/2 opacity-50 md:opacity-70"></div>
+            </div>
+          </div>
+
+          {/* Top Right Corner Star Pattern */}
+          <div className="absolute top-3 right-3 md:top-6 md:right-6 opacity-60 md:opacity-80">
+            <div className="relative w-6 h-6 md:w-8 md:h-8">
+              {/* Main star shape */}
+              <div
+                className="absolute inset-0 bg-white"
+                style={{
+                  clipPath:
+                    "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
+                  filter:
+                    "drop-shadow(0 0 4px rgba(255, 255, 255, 0.4)) drop-shadow(0 0 6px rgba(255, 255, 255, 0.6))",
+                }}
+              ></div>
+              {/* Sparkle rays */}
+              <div className="absolute -top-1.5 md:-top-2 left-1/2 w-0.5 h-3 md:h-4 bg-white transform -translate-x-1/2 opacity-50 md:opacity-70"></div>
+              <div className="absolute -bottom-1.5 md:-bottom-2 left-1/2 w-0.5 h-3 md:h-4 bg-white transform -translate-x-1/2 opacity-50 md:opacity-70"></div>
+              <div className="absolute -left-1.5 md:-left-2 top-1/2 w-3 md:w-4 h-0.5 bg-white transform -translate-y-1/2 opacity-50 md:opacity-70"></div>
+              <div className="absolute -right-1.5 md:-right-2 top-1/2 w-3 md:w-4 h-0.5 bg-white transform -translate-y-1/2 opacity-50 md:opacity-70"></div>
+            </div>
+          </div>
+
+          {/* Bottom Left Corner Star Pattern */}
+          <div className="absolute bottom-3 left-3 md:bottom-6 md:left-6 opacity-60 md:opacity-80">
+            <div className="relative w-6 h-6 md:w-8 md:h-8">
+              {/* Main star shape */}
+              <div
+                className="absolute inset-0 bg-white"
+                style={{
+                  clipPath:
+                    "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
+                  filter:
+                    "drop-shadow(0 0 4px rgba(255, 255, 255, 0.4)) drop-shadow(0 0 6px rgba(255, 255, 255, 0.6))",
+                }}
+              ></div>
+              {/* Sparkle rays */}
+              <div className="absolute -top-1.5 md:-top-2 left-1/2 w-0.5 h-3 md:h-4 bg-white transform -translate-x-1/2 opacity-50 md:opacity-70"></div>
+              <div className="absolute -bottom-1.5 md:-bottom-2 left-1/2 w-0.5 h-3 md:h-4 bg-white transform -translate-x-1/2 opacity-50 md:opacity-70"></div>
+              <div className="absolute -left-1.5 md:-left-2 top-1/2 w-3 md:w-4 h-0.5 bg-white transform -translate-y-1/2 opacity-50 md:opacity-70"></div>
+              <div className="absolute -right-1.5 md:-right-2 top-1/2 w-3 md:w-4 h-0.5 bg-white transform -translate-y-1/2 opacity-50 md:opacity-70"></div>
+            </div>
+          </div>
+
+          {/* Bottom Right Corner Star Pattern */}
+          <div className="absolute bottom-3 right-3 md:bottom-6 md:right-6 opacity-60 md:opacity-80">
+            <div className="relative w-6 h-6 md:w-8 md:h-8">
+              {/* Main star shape */}
+              <div
+                className="absolute inset-0 bg-white"
+                style={{
+                  clipPath:
+                    "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
+                  filter:
+                    "drop-shadow(0 0 4px rgba(255, 255, 255, 0.4)) drop-shadow(0 0 6px rgba(255, 255, 255, 0.6))",
+                }}
+              ></div>
+              {/* Sparkle rays */}
+              <div className="absolute -top-1.5 md:-top-2 left-1/2 w-0.5 h-3 md:h-4 bg-white transform -translate-x-1/2 opacity-50 md:opacity-70"></div>
+              <div className="absolute -bottom-1.5 md:-bottom-2 left-1/2 w-0.5 h-3 md:h-4 bg-white transform -translate-x-1/2 opacity-50 md:opacity-70"></div>
+              <div className="absolute -left-1.5 md:-left-2 top-1/2 w-3 md:w-4 h-0.5 bg-white transform -translate-y-1/2 opacity-50 md:opacity-70"></div>
+              <div className="absolute -right-1.5 md:-right-2 top-1/2 w-3 md:w-4 h-0.5 bg-white transform -translate-y-1/2 opacity-50 md:opacity-70"></div>
+            </div>
+          </div>
+
+          {/* Small additional sparkles between corners - Now responsive */}
+          <div
+            className="absolute top-8 left-8 md:top-16 md:left-16 w-1 h-1 md:w-1.5 md:h-1.5 bg-white rounded-full opacity-40 md:opacity-60"
+            style={{
+              boxShadow:
+                "0 0 3px rgba(255, 255, 255, 0.2), 0 0 4px rgba(255, 255, 255, 0.3)",
+            }}
+          ></div>
+          <div
+            className="absolute top-8 right-8 md:top-16 md:right-16 w-1 h-1 md:w-1.5 md:h-1.5 bg-white rounded-full opacity-40 md:opacity-60"
+            style={{
+              boxShadow:
+                "0 0 3px rgba(255, 255, 255, 0.2), 0 0 4px rgba(255, 255, 255, 0.3)",
+            }}
+          ></div>
+          <div
+            className="absolute bottom-8 left-8 md:bottom-16 md:left-16 w-1 h-1 md:w-1.5 md:h-1.5 bg-white rounded-full opacity-40 md:opacity-60"
+            style={{
+              boxShadow:
+                "0 0 3px rgba(255, 255, 255, 0.2), 0 0 4px rgba(255, 255, 255, 0.3)",
+            }}
+          ></div>
+          <div
+            className="absolute bottom-8 right-8 md:bottom-16 md:right-16 w-1 h-1 md:w-1.5 md:h-1.5 bg-white rounded-full opacity-40 md:opacity-60"
+            style={{
+              boxShadow:
+                "0 0 3px rgba(255, 255, 255, 0.2), 0 0 4px rgba(255, 255, 255, 0.3)",
+            }}
+          ></div>
+
+          {/* A few scattered dots for subtle background texture - Mobile responsive */}
+          <div className="absolute top-1/4 left-6 md:top-1/3 md:left-12 w-0.5 h-0.5 md:w-1 md:h-1 bg-white rounded-full opacity-30 md:opacity-40"></div>
+          <div className="absolute top-1/4 right-6 md:top-1/3 md:right-12 w-0.5 h-0.5 md:w-1 md:h-1 bg-white rounded-full opacity-30 md:opacity-40"></div>
+          <div className="absolute bottom-1/4 left-6 md:bottom-1/3 md:left-12 w-0.5 h-0.5 md:w-1 md:h-1 bg-white rounded-full opacity-30 md:opacity-40"></div>
+          <div className="absolute bottom-1/4 right-6 md:bottom-1/3 md:right-12 w-0.5 h-0.5 md:w-1 md:h-1 bg-white rounded-full opacity-30 md:opacity-40"></div>
+        </div>
+
+        {/* Side decorative images for the entire section */}
+        <div className="absolute left-0 top-1/2 transform -translate-y-1/2 hidden lg:block opacity-70">
+          <img
+            src="/ssi.png"
+            alt="Decorative element"
+            className="w-36 h-96 object-cover rounded-lg"
+            style={{
+              filter: "brightness(1.3) contrast(1.1)",
+            }}
+          />
+        </div>
+
+        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 hidden lg:block opacity-70">
+          <img
+            src="/ssi.png"
+            alt="Decorative element"
+            className="w-36 h-96 object-cover rounded-lg"
+            style={{
+              filter: "brightness(1.3) contrast(1.1)",
+            }}
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto relative">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl lg:text-6xl font-light text-white mb-6 tracking-wide">
+              Unlock crypto rails.
+            </h2>
+            <p className="text-lg text-gray-300 max-w-3xl mx-auto font-light tracking-wide leading-relaxed">
+              Whether you're building in-app wallets or launching your own
+              fleet, we help you meet users where they are.
+            </p>
+            <div className="mt-8">
+              <button className="bg-transparent border border-gray-600 text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition-all duration-300 flex items-center gap-2 mx-auto">
+                Get setup in 9 minutes
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  className="text-white"
+                >
+                  <path
+                    d="M6 12L10 8L6 4"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Images Section with content overlaid - Responsive */}
+          <div className="flex flex-col md:flex-row justify-center items-center md:items-end space-y-6 md:space-y-0 md:space-x-8 lg:space-x-12">
+            {/* Secure by design */}
+            <div className="relative w-64 h-48 sm:w-72 sm:h-52 md:w-48 md:h-48 lg:w-64 lg:h-64 transform hover:scale-105 transition-transform duration-300">
+              <img
+                src="/11.png"
+                alt="Secure by design"
+                className="w-full h-full object-cover opacity-95 hover:opacity-100 transition-opacity duration-300 rounded-lg"
+                style={{ backgroundColor: "transparent" }}
+              />
+              {/* Overlaid content - minimal opacity to show image clearly */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent rounded-lg flex flex-col justify-end p-4 sm:p-6">
+                <h3 className="text-base sm:text-lg font-bold text-white mb-2 drop-shadow-xl">
+                  Secure by design
+                </h3>
+                <p className="text-gray-100 text-xs sm:text-sm leading-relaxed drop-shadow-lg">
+                  Privy combines key sharding and TEEs to secure every wallet.
+                </p>
+              </div>
+            </div>
+
+            {/* Whitelabel and modular - Taller on desktop, normal on mobile */}
+            <div className="relative w-64 h-48 sm:w-72 sm:h-52 md:w-48 md:h-64 lg:w-64 lg:h-80 transform hover:scale-105 transition-transform duration-300">
+              <img
+                src="/12.png"
+                alt="Whitelabel and modular"
+                className="w-full h-full object-cover opacity-95 hover:opacity-100 transition-opacity duration-300 rounded-lg"
+              />
+              {/* Overlaid content - minimal opacity to show image clearly */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent rounded-lg flex flex-col justify-end p-4 sm:p-6">
+                <h3 className="text-base sm:text-lg font-bold text-white mb-2 drop-shadow-xl">
+                  Whitelabel and modular
+                </h3>
+                <p className="text-gray-100 text-xs sm:text-sm leading-relaxed drop-shadow-lg">
+                  From APIs to modular components, Privy lets you build your
+                  way.
+                </p>
+              </div>
+            </div>
+
+            {/* Scales as you grow */}
+            <div className="relative w-64 h-48 sm:w-72 sm:h-52 md:w-48 md:h-48 lg:w-64 lg:h-64 transform hover:scale-105 transition-transform duration-300">
+              <img
+                src="/13.png"
+                alt="Scales as you grow"
+                className="w-full h-full object-cover opacity-95 hover:opacity-100 transition-opacity duration-300 rounded-lg"
+              />
+              {/* Overlaid content - minimal opacity to show image clearly */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent rounded-lg flex flex-col justify-end p-4 sm:p-6">
+                <h3 className="text-base sm:text-lg font-bold text-white mb-2 drop-shadow-xl">
+                  Scales as you grow
+                </h3>
+                <p className="text-gray-100 text-xs sm:text-sm leading-relaxed drop-shadow-lg">
+                  The complete embedded wallet stack that grows with your
+                  product.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Full Coverage List Section */}
+      <div className="relative z-10 py-20 px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-left mb-16">
+            <h2 className="text-2xl lg:text-2xl font-bold text-gray-900 mb-4">
+              Full coverage list
+            </h2>
+            <p className="text-xl text-gray-600 font-light">
+              Available on all EVM Chains
+            </p>
+          </div>
+
+          {/* Blockchain Logos Row */}
+          <div className="relative overflow-hidden py-4">
+            <div className="flex items-center animate-scroll-infinite min-w-max">
+              {/* First set */}
+              <div className="flex items-center px-3 md:px-6 lg:px-8">
+                <img
+                  src="/l1.png"
+                  alt="Blockchain 1"
+                  className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
+                />
+              </div>
+
+              <div className="flex items-center px-3 md:px-6 lg:px-8">
+                <img
+                  src="/l2.png"
+                  alt="Blockchain 2"
+                  className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
+                />
+              </div>
+
+              <div className="flex items-center px-3 md:px-6 lg:px-8">
+                <img
+                  src="/l3.png"
+                  alt="Blockchain 3"
+                  className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
+                />
+              </div>
+
+              <div className="flex items-center px-3 md:px-6 lg:px-8">
+                <img
+                  src="/l4.png"
+                  alt="Blockchain 4"
+                  className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
+                />
+              </div>
+
+              <div className="flex items-center px-3 md:px-6 lg:px-8">
+                <img
+                  src="/l5.png"
+                  alt="Blockchain 5"
+                  className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
+                />
+              </div>
+
+              {/* Duplicate set for seamless loop */}
+              <div className="flex items-center px-3 md:px-6 lg:px-8">
+                <img
+                  src="/l1.png"
+                  alt="Blockchain 1"
+                  className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
+                />
+              </div>
+
+              <div className="flex items-center px-3 md:px-6 lg:px-8">
+                <img
+                  src="/l2.png"
+                  alt="Blockchain 2"
+                  className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
+                />
+              </div>
+
+              <div className="flex items-center px-3 md:px-6 lg:px-8">
+                <img
+                  src="/l3.png"
+                  alt="Blockchain 3"
+                  className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
+                />
+              </div>
+
+              <div className="flex items-center px-3 md:px-6 lg:px-8">
+                <img
+                  src="/l4.png"
+                  alt="Blockchain 4"
+                  className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
+                />
+              </div>
+
+              <div className="flex items-center px-3 md:px-6 lg:px-8">
+                <img
+                  src="/l5.png"
+                  alt="Blockchain 5"
+                  className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
+                />
+              </div>
             </div>
           </div>
         </div>
