@@ -1269,43 +1269,50 @@ export default function LandingPage() {
               {/* Enhanced Left Content */}
               <div className="space-y-10 relative lg:col-span-2 text-center">
                 <div className="space-y-10 relative max-w-6xl mx-auto">
-                  <h1 className="text-6xl lg:text-8xl font-extrabold text-gray-900 leading-tight tracking-tight mb-10 max-w-6xl mx-auto">
+                  <h1
+                    className="text-5xl lg:text-7xl leading-tight mb-10 max-w-6xl mx-auto"
+                    style={{
+                      fontFamily:
+                        '"Inter", "Helvetica Neue", Arial, sans-serif',
+                    }}
+                  >
                     <span
-                      className="block font-light text-gray-800 mb-2 tracking-wide"
+                      className="block mb-2"
                       style={{
-                        fontFamily: 'Georgia, "Times New Roman", Times, serif',
-                        fontStyle: "italic",
-                        fontWeight: "300",
-                        letterSpacing: "0.02em",
+                        fontWeight: "600",
+                        letterSpacing: "-0.02em",
+                        color: "#1f2937",
                       }}
                     >
                       New gen of
                     </span>
                     <span
-                      className="block font-black bg-gradient-to-r from-gray-900 via-amber-500 to-yellow-600 bg-clip-text text-transparent tracking-tight"
+                      className="block"
                       style={{
-                        fontFamily: 'Georgia, "Times New Roman", Times, serif',
-                        fontStyle: "italic",
-                        fontWeight: "400",
-                        letterSpacing: "0.01em",
+                        fontWeight: "600",
+                        letterSpacing: "-0.02em",
+                        background:
+                          "linear-gradient(135deg, #1f2937 0%, #374151 25%, #6b7280 50%, #9ca3af 75%, #1f2937 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
                       }}
                     >
                       digital currency
                     </span>
                     <span
-                      className="block font-semibold text-4xl lg:text-6xl mt-4 text-gray-700 tracking-wide"
+                      className="block text-3xl lg:text-5xl mt-4"
                       style={{
-                        fontFamily: 'Georgia, "Times New Roman", Times, serif',
-                        fontStyle: "italic",
-                        fontWeight: "300",
-                        letterSpacing: "0.02em",
+                        fontWeight: "600",
+                        letterSpacing: "-0.02em",
+                        color: "#374151",
                       }}
                     >
                       creation platform
                     </span>
                   </h1>
 
-                  <p className="text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto font-normal tracking-wide">
+                  <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto font-normal tracking-wide">
                     Experience secure and efficient token creation, minting, and
                     transfers on Solana with our cutting-edge solutions designed
                     for the future.
