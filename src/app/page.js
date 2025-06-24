@@ -9,6 +9,8 @@ export default function LandingPage() {
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
+  const [scrollY, setScrollY] = useState(0);
+  const [bubbles, setBubbles] = useState([]);
 
   useEffect(() => {
     if (isLoaded && user) {
@@ -20,10 +22,50 @@ export default function LandingPage() {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 10;
       setScrolled(isScrolled);
+      setScrollY(window.scrollY);
+
+      // Generate bubbles based on scroll position
+      const scrollProgress =
+        window.scrollY /
+        (document.documentElement.scrollHeight - window.innerHeight);
+      const shouldCreateBubble = Math.random() < 0.3 && window.scrollY > 50;
+
+      if (shouldCreateBubble) {
+        const newBubble = {
+          id: Date.now() + Math.random(),
+          x: Math.random() * window.innerWidth,
+          y: window.innerHeight + 50,
+          size: Math.random() * 30 + 10,
+          speed: Math.random() * 2 + 1,
+          opacity: Math.random() * 0.7 + 0.3,
+          drift: (Math.random() - 0.5) * 2,
+        };
+
+        setBubbles((prev) => [...prev.slice(-20), newBubble]); // Keep only last 20 bubbles
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Update bubble positions
+  useEffect(() => {
+    const animateBubbles = () => {
+      setBubbles((prev) =>
+        prev
+          .map((bubble) => ({
+            ...bubble,
+            y: bubble.y - bubble.speed,
+            x: bubble.x + bubble.drift * 0.5,
+            opacity: bubble.y < -100 ? 0 : bubble.opacity,
+          }))
+          .filter((bubble) => bubble.y > -100 && bubble.opacity > 0)
+      );
+    };
+
+    const interval = setInterval(animateBubbles, 50);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -124,6 +166,142 @@ export default function LandingPage() {
           50% {
             transform: translateY(-10px) scale(1.2);
             opacity: 0.8;
+          }
+        }
+
+        @keyframes waterDropletFloat {
+          0%,
+          100% {
+            transform: translateY(0px) scale(1) rotate(0deg);
+            opacity: 0.4;
+          }
+          25% {
+            transform: translateY(-5px) scale(1.1) rotate(2deg);
+            opacity: 0.7;
+          }
+          50% {
+            transform: translateY(-12px) scale(1.2) rotate(0deg);
+            opacity: 0.9;
+          }
+          75% {
+            transform: translateY(-5px) scale(1.1) rotate(-2deg);
+            opacity: 0.7;
+          }
+        }
+
+        @keyframes crystalShimmer {
+          0%,
+          100% {
+            opacity: 0.2;
+            transform: scale(0.8) rotate(0deg);
+            filter: hue-rotate(0deg);
+          }
+          25% {
+            opacity: 0.6;
+            transform: scale(1.1) rotate(45deg);
+            filter: hue-rotate(90deg);
+          }
+          50% {
+            opacity: 0.9;
+            transform: scale(1.3) rotate(90deg);
+            filter: hue-rotate(180deg);
+          }
+          75% {
+            opacity: 0.4;
+            transform: scale(0.9) rotate(135deg);
+            filter: hue-rotate(270deg);
+          }
+        }
+
+        @keyframes dropletRipple {
+          0% {
+            transform: scale(0.8);
+            opacity: 0.8;
+          }
+          50% {
+            transform: scale(1.2);
+            opacity: 0.3;
+          }
+          100% {
+            transform: scale(1.5);
+            opacity: 0;
+          }
+        }
+
+        @keyframes bubbleFloat {
+          0% {
+            transform: translateY(0px) translateX(0px) scale(1);
+            opacity: 0;
+          }
+          10% {
+            opacity: 1;
+          }
+          50% {
+            transform: translateY(-20px) translateX(10px) scale(1.1);
+            opacity: 0.8;
+          }
+          100% {
+            transform: translateY(-40px) translateX(-5px) scale(0.9);
+            opacity: 0;
+          }
+        }
+
+        @keyframes bubbleShimmer {
+          0%,
+          100% {
+            background: radial-gradient(
+              circle at 30% 30%,
+              rgba(255, 255, 255, 0.8) 0%,
+              rgba(59, 130, 246, 0.3) 30%,
+              rgba(147, 197, 253, 0.2) 60%,
+              rgba(219, 234, 254, 0.1) 80%,
+              transparent 100%
+            );
+          }
+          25% {
+            background: radial-gradient(
+              circle at 40% 20%,
+              rgba(255, 255, 255, 0.9) 0%,
+              rgba(34, 197, 94, 0.3) 30%,
+              rgba(134, 239, 172, 0.2) 60%,
+              rgba(187, 247, 208, 0.1) 80%,
+              transparent 100%
+            );
+          }
+          50% {
+            background: radial-gradient(
+              circle at 60% 40%,
+              rgba(255, 255, 255, 0.8) 0%,
+              rgba(168, 85, 247, 0.3) 30%,
+              rgba(196, 181, 253, 0.2) 60%,
+              rgba(233, 213, 255, 0.1) 80%,
+              transparent 100%
+            );
+          }
+          75% {
+            background: radial-gradient(
+              circle at 20% 60%,
+              rgba(255, 255, 255, 0.9) 0%,
+              rgba(245, 158, 11, 0.3) 30%,
+              rgba(251, 191, 36, 0.2) 60%,
+              rgba(254, 240, 138, 0.1) 80%,
+              transparent 100%
+            );
+          }
+        }
+
+        @keyframes bubblePop {
+          0% {
+            transform: scale(1);
+            opacity: 1;
+          }
+          50% {
+            transform: scale(1.3);
+            opacity: 0.7;
+          }
+          100% {
+            transform: scale(2);
+            opacity: 0;
           }
         }
 
@@ -388,6 +566,57 @@ export default function LandingPage() {
           opacity: 0.1;
         }
 
+        .water-droplet-crystal-grid {
+          position: absolute;
+          inset: 0;
+          background-image: radial-gradient(
+              ellipse 8px 12px at center,
+              rgba(59, 130, 246, 0.3) 0%,
+              rgba(147, 197, 253, 0.4) 30%,
+              rgba(219, 234, 254, 0.2) 60%,
+              transparent 80%
+            ),
+            radial-gradient(
+              ellipse 6px 9px at center,
+              rgba(34, 197, 94, 0.2) 0%,
+              rgba(134, 239, 172, 0.3) 40%,
+              transparent 70%
+            ),
+            radial-gradient(
+              ellipse 10px 15px at center,
+              rgba(168, 85, 247, 0.2) 0%,
+              rgba(196, 181, 253, 0.3) 50%,
+              transparent 80%
+            );
+          background-size: 100px 120px, 140px 160px, 180px 200px;
+          background-position: 0 0, 50px 60px, 100px 80px;
+          transform: rotate(30deg) scale(1.2);
+          animation: crystalShimmer 12s ease-in-out infinite;
+          filter: blur(0.5px);
+        }
+
+        .water-droplet-crystal-grid-secondary {
+          position: absolute;
+          inset: 0;
+          background-image: radial-gradient(
+              ellipse 5px 8px at center,
+              rgba(245, 158, 11, 0.3) 0%,
+              rgba(251, 191, 36, 0.2) 40%,
+              transparent 70%
+            ),
+            radial-gradient(
+              ellipse 7px 11px at center,
+              rgba(14, 165, 233, 0.25) 0%,
+              rgba(125, 211, 252, 0.2) 50%,
+              transparent 80%
+            );
+          background-size: 80px 100px, 120px 140px;
+          background-position: 40px 20px, 80px 70px;
+          transform: rotate(-45deg) scale(1.1);
+          animation: crystalShimmer 15s ease-in-out infinite reverse;
+          filter: blur(0.3px);
+        }
+
         .floating-dots {
           position: absolute;
           inset: 0;
@@ -400,6 +629,141 @@ export default function LandingPage() {
           background: radial-gradient(circle, #fbbf24, #f59e0b, transparent);
           border-radius: 50%;
           animation: dotFloat 3s ease-in-out infinite;
+        }
+
+        .water-droplet {
+          position: absolute;
+          border-radius: 50% 50% 50% 0;
+          background: linear-gradient(
+            135deg,
+            rgba(59, 130, 246, 0.4) 0%,
+            rgba(147, 197, 253, 0.3) 30%,
+            rgba(219, 234, 254, 0.2) 60%,
+            rgba(255, 255, 255, 0.1) 80%,
+            transparent 100%
+          );
+          box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.3),
+            inset -1px -1px 2px rgba(59, 130, 246, 0.2),
+            0 2px 8px rgba(59, 130, 246, 0.1);
+          animation: waterDropletFloat 4s ease-in-out infinite;
+          filter: blur(0.2px);
+        }
+
+        .water-droplet::before {
+          content: "";
+          position: absolute;
+          top: 20%;
+          left: 30%;
+          width: 25%;
+          height: 25%;
+          background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.6) 0%,
+            rgba(255, 255, 255, 0.2) 60%,
+            transparent 100%
+          );
+          border-radius: 50%;
+          filter: blur(0.5px);
+        }
+
+        .crystal-fragment {
+          position: absolute;
+          background: linear-gradient(
+            45deg,
+            rgba(168, 85, 247, 0.3) 0%,
+            rgba(196, 181, 253, 0.2) 30%,
+            rgba(233, 213, 255, 0.1) 60%,
+            transparent 100%
+          );
+          clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+          animation: crystalShimmer 6s ease-in-out infinite;
+          filter: blur(0.3px);
+        }
+
+        .droplet-ripple {
+          position: absolute;
+          border: 1px solid rgba(59, 130, 246, 0.2);
+          border-radius: 50%;
+          animation: dropletRipple 3s ease-out infinite;
+        }
+
+        .scroll-bubble {
+          position: fixed;
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 5;
+          animation: bubbleShimmer 4s ease-in-out infinite;
+          box-shadow: inset -2px -2px 6px rgba(255, 255, 255, 0.3),
+            inset 2px 2px 6px rgba(0, 0, 0, 0.1),
+            0 4px 15px rgba(59, 130, 246, 0.2);
+          backdrop-filter: blur(2px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .scroll-bubble::before {
+          content: "";
+          position: absolute;
+          top: 15%;
+          left: 20%;
+          width: 30%;
+          height: 30%;
+          background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.8) 0%,
+            rgba(255, 255, 255, 0.4) 60%,
+            transparent 100%
+          );
+          border-radius: 50%;
+          filter: blur(1px);
+        }
+
+        .scroll-bubble::after {
+          content: "";
+          position: absolute;
+          top: 60%;
+          right: 25%;
+          width: 15%;
+          height: 15%;
+          background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.6) 0%,
+            rgba(255, 255, 255, 0.2) 60%,
+            transparent 100%
+          );
+          border-radius: 50%;
+          filter: blur(0.5px);
+        }
+
+        .bubble-pop {
+          animation: bubblePop 0.6s ease-out forwards;
+        }
+
+        @keyframes spiralLineGrow {
+          0% {
+            transform: scale(0);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+
+        @keyframes shiningGradient {
+          0% {
+            background-position: -200% center;
+          }
+          100% {
+            background-position: 200% center;
+          }
+        }
+
+        @keyframes metallicShine {
+          0%,
+          100% {
+            filter: brightness(1) contrast(1);
+          }
+          50% {
+            filter: brightness(1.3) contrast(1.2);
+          }
         }
       `}</style>
 
@@ -421,6 +785,29 @@ export default function LandingPage() {
       )}
 
       <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-white via-amber-50 to-yellow-100">
+        {/* Scroll-Triggered Bubbles */}
+        {bubbles.map((bubble) => (
+          <div
+            key={bubble.id}
+            className="scroll-bubble"
+            style={{
+              left: `${bubble.x}px`,
+              top: `${bubble.y}px`,
+              width: `${bubble.size}px`,
+              height: `${bubble.size}px`,
+              opacity: bubble.opacity,
+              transform: `translateY(0px)`,
+              transition: "all 0.1s ease-out",
+            }}
+            onClick={() => {
+              // Add pop effect on click
+              setBubbles((prev) =>
+                prev.map((b) => (b.id === bubble.id ? { ...b, opacity: 0 } : b))
+              );
+            }}
+          />
+        ))}
+
         {/* Enhanced Background Elements */}
         <div className="absolute inset-0 w-full h-full">
           {/* Panda Video Background */}
@@ -439,76 +826,391 @@ export default function LandingPage() {
           {/* Enhanced Gradient Overlay - Made more transparent to show video */}
           <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-amber-50/30 to-yellow-100/35"></div>
 
-          {/* Diagonal Dot Grid Pattern - Primary - Made more transparent */}
-          <div className="diagonal-dot-grid" style={{ opacity: 0.08 }}></div>
-
-          {/* Diagonal Dot Grid Pattern - Secondary - Made more transparent */}
+          {/* Spiral Pattern Elements */}
+          {/* Top Left Flowing Curves */}
           <div
-            className="diagonal-dot-grid-secondary"
-            style={{ opacity: 0.05 }}
-          ></div>
-
-          {/* Floating Individual Dots - Reduced opacity */}
-          <div className="floating-dots" style={{ opacity: 0.6 }}>
-            <div
-              className="floating-dot"
-              style={{ top: "10%", left: "15%", animationDelay: "0s" }}
-            ></div>
-            <div
-              className="floating-dot"
-              style={{ top: "25%", left: "80%", animationDelay: "0.5s" }}
-            ></div>
-            <div
-              className="floating-dot"
-              style={{ top: "40%", left: "20%", animationDelay: "1s" }}
-            ></div>
-            <div
-              className="floating-dot"
-              style={{ top: "60%", left: "75%", animationDelay: "1.5s" }}
-            ></div>
-            <div
-              className="floating-dot"
-              style={{ top: "80%", left: "30%", animationDelay: "2s" }}
-            ></div>
-            <div
-              className="floating-dot"
-              style={{ top: "15%", left: "50%", animationDelay: "2.5s" }}
-            ></div>
-            <div
-              className="floating-dot"
-              style={{ top: "70%", left: "60%", animationDelay: "3s" }}
-            ></div>
-            <div
-              className="floating-dot"
-              style={{ top: "35%", left: "90%", animationDelay: "3.5s" }}
-            ></div>
+            className="spiral-container"
+            style={{ top: "10%", left: "5%", opacity: 0.8 }}
+          >
+            <svg
+              className="spiral-line-svg"
+              viewBox="0 0 200 200"
+              style={{ filter: "drop-shadow(0 0 3px rgba(139, 69, 19, 0.3))" }}
+            >
+              <path
+                d="M20,20 Q60,40 100,20 Q140,0 180,40 Q220,80 180,120 Q140,160 100,140 Q60,120 20,160"
+                fill="none"
+                stroke="url(#shining-brown-gradient1)"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                style={{
+                  animation:
+                    "spiralLineGrow 8s ease-in-out infinite, metallicShine 3s ease-in-out infinite",
+                }}
+              />
+              <path
+                d="M30,180 Q70,160 110,180 Q150,200 190,160"
+                fill="none"
+                stroke="url(#shining-brown-gradient1)"
+                strokeWidth="1"
+                strokeLinecap="round"
+                style={{
+                  animation:
+                    "spiralLineGrow 10s ease-in-out infinite, metallicShine 4s ease-in-out infinite",
+                  animationDelay: "2s, 1s",
+                }}
+              />
+              <defs>
+                <linearGradient
+                  id="shining-brown-gradient1"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stopColor="#3e2723" stopOpacity="0.9" />
+                  <stop offset="15%" stopColor="#5d4037" stopOpacity="1" />
+                  <stop offset="30%" stopColor="#8d6e63" stopOpacity="1" />
+                  <stop offset="45%" stopColor="#f5f5dc" stopOpacity="1" />
+                  <stop offset="60%" stopColor="#fff8dc" stopOpacity="1" />
+                  <stop offset="75%" stopColor="#d2b48c" stopOpacity="1" />
+                  <stop offset="90%" stopColor="#8b4513" stopOpacity="0.9" />
+                  <stop offset="100%" stopColor="#654321" stopOpacity="0.8" />
+                </linearGradient>
+              </defs>
+            </svg>
           </div>
 
-          {/* Animated Mesh Gradient - Reduced opacity */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-amber-400/20 via-transparent to-yellow-400/20 animate-pulse"></div>
-            <div
-              className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-amber-300/15 to-transparent"
-              style={{ animationDelay: "1s" }}
-            ></div>
+          {/* Top Right Flowing Curves */}
+          <div
+            className="spiral-dot-container"
+            style={{ top: "15%", right: "8%", opacity: 0.8 }}
+          >
+            <svg
+              width="150"
+              height="150"
+              viewBox="0 0 150 150"
+              style={{
+                filter: "drop-shadow(0 0 4px rgba(210, 180, 140, 0.4))",
+              }}
+            >
+              <path
+                d="M10,75 Q40,20 75,50 Q110,80 140,30"
+                fill="none"
+                stroke="url(#shining-brown-gradient2)"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+                style={{
+                  animation:
+                    "spiralLineGrow 6s ease-in-out infinite, metallicShine 2.5s ease-in-out infinite",
+                }}
+              />
+              <path
+                d="M20,120 Q50,90 80,120 Q110,150 140,120"
+                fill="none"
+                stroke="url(#shining-brown-gradient2)"
+                strokeWidth="1.1"
+                strokeLinecap="round"
+                style={{
+                  animation:
+                    "spiralLineGrow 8s ease-in-out infinite, metallicShine 3.5s ease-in-out infinite",
+                  animationDelay: "1s, 0.5s",
+                }}
+              />
+              <defs>
+                <linearGradient
+                  id="shining-brown-gradient2"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stopColor="#ffeaa7" stopOpacity="1" />
+                  <stop offset="20%" stopColor="#fdcb6e" stopOpacity="1" />
+                  <stop offset="40%" stopColor="#e17055" stopOpacity="1" />
+                  <stop offset="60%" stopColor="#8b4513" stopOpacity="1" />
+                  <stop offset="80%" stopColor="#5d4037" stopOpacity="0.9" />
+                  <stop offset="100%" stopColor="#3e2723" stopOpacity="0.8" />
+                </linearGradient>
+              </defs>
+            </svg>
           </div>
 
-          {/* Gradient Overlay for Dot Grids - Top Right Corner - Reduced opacity */}
-          <div className="absolute top-0 right-0 w-96 h-96 opacity-[0.04] pointer-events-none">
-            <div className="absolute inset-0 bg-gradient-to-bl from-amber-300/40 to-transparent rounded-full blur-xl"></div>
-            <div
-              className="diagonal-dot-grid"
-              style={{ transform: "rotate(30deg) scale(0.8)" }}
-            ></div>
+          {/* Center Large Flowing Curve */}
+          <div
+            className="spiral-fibonacci"
+            style={{ top: "40%", left: "65%", opacity: 0.7 }}
+          >
+            <svg
+              className="spiral-fibonacci-svg"
+              viewBox="0 0 300 300"
+              style={{ filter: "drop-shadow(0 0 5px rgba(139, 69, 19, 0.5))" }}
+            >
+              <path
+                d="M50,150 Q100,50 150,100 Q200,150 250,100 Q300,50 350,150 Q300,250 250,200 Q200,150 150,200 Q100,250 50,150"
+                fill="none"
+                stroke="url(#large-shining-brown-gradient)"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                style={{
+                  animation:
+                    "spiralLineGrow 12s ease-in-out infinite, metallicShine 4s ease-in-out infinite",
+                }}
+              />
+              <path
+                d="M80,150 Q120,80 150,120 Q180,160 220,130"
+                fill="none"
+                stroke="url(#large-shining-brown-gradient)"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                style={{
+                  animation:
+                    "spiralLineGrow 10s ease-in-out infinite, metallicShine 5s ease-in-out infinite",
+                  animationDelay: "3s, 1.5s",
+                }}
+              />
+              <defs>
+                <linearGradient
+                  id="large-shining-brown-gradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stopColor="#2c1810" stopOpacity="0.9" />
+                  <stop offset="12%" stopColor="#3e2723" stopOpacity="1" />
+                  <stop offset="25%" stopColor="#5d4037" stopOpacity="1" />
+                  <stop offset="37%" stopColor="#8d6e63" stopOpacity="1" />
+                  <stop offset="50%" stopColor="#f5deb3" stopOpacity="1" />
+                  <stop offset="62%" stopColor="#fff8dc" stopOpacity="1" />
+                  <stop offset="75%" stopColor="#ddbf94" stopOpacity="1" />
+                  <stop offset="87%" stopColor="#a0522d" stopOpacity="0.9" />
+                  <stop offset="100%" stopColor="#654321" stopOpacity="0.8" />
+                </linearGradient>
+              </defs>
+            </svg>
           </div>
 
-          {/* Gradient Overlay for Dot Grids - Bottom Left Corner - Reduced opacity */}
-          <div className="absolute bottom-0 left-0 w-80 h-80 opacity-[0.03] pointer-events-none">
-            <div className="absolute inset-0 bg-gradient-to-tr from-yellow-300/30 to-transparent rounded-full blur-xl"></div>
-            <div
-              className="diagonal-dot-grid-secondary"
-              style={{ transform: "rotate(-30deg) scale(0.6)" }}
-            ></div>
+          {/* Bottom Left Flowing Lines */}
+          <div
+            className="spiral-grid"
+            style={{
+              bottom: "20%",
+              left: "10%",
+              width: "200px",
+              height: "120px",
+              opacity: 0.7,
+            }}
+          >
+            <svg
+              width="200"
+              height="120"
+              viewBox="0 0 200 120"
+              style={{ filter: "drop-shadow(0 0 3px rgba(160, 82, 45, 0.4))" }}
+            >
+              <path
+                d="M0,60 Q50,20 100,60 Q150,100 200,60"
+                fill="none"
+                stroke="url(#bottom-shining-brown-gradient)"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                style={{
+                  animation:
+                    "spiralLineGrow 7s ease-in-out infinite, metallicShine 3s ease-in-out infinite",
+                }}
+              />
+              <path
+                d="M0,80 Q50,40 100,80 Q150,120 200,80"
+                fill="none"
+                stroke="url(#bottom-shining-brown-gradient)"
+                strokeWidth="1"
+                strokeLinecap="round"
+                style={{
+                  animation:
+                    "spiralLineGrow 9s ease-in-out infinite, metallicShine 4s ease-in-out infinite",
+                  animationDelay: "1.5s, 0.8s",
+                }}
+              />
+              <path
+                d="M0,40 Q50,0 100,40 Q150,80 200,40"
+                fill="none"
+                stroke="url(#bottom-shining-brown-gradient)"
+                strokeWidth="0.8"
+                strokeLinecap="round"
+                style={{
+                  animation:
+                    "spiralLineGrow 11s ease-in-out infinite, metallicShine 3.5s ease-in-out infinite",
+                  animationDelay: "3s, 1.2s",
+                }}
+              />
+              <defs>
+                <linearGradient
+                  id="bottom-shining-brown-gradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" stopColor="#8b4513" stopOpacity="0.8" />
+                  <stop offset="20%" stopColor="#a0522d" stopOpacity="0.9" />
+                  <stop offset="40%" stopColor="#ddbf94" stopOpacity="1" />
+                  <stop offset="60%" stopColor="#f5deb3" stopOpacity="1" />
+                  <stop offset="80%" stopColor="#d2b48c" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#654321" stopOpacity="0.8" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          {/* Bottom Right Flowing Curves */}
+          <div
+            className="spiral-wave-line"
+            style={{ bottom: "15%", right: "15%", opacity: 0.7 }}
+          >
+            <svg
+              className="spiral-line-svg"
+              viewBox="0 0 250 200"
+              style={{ filter: "drop-shadow(0 0 4px rgba(139, 69, 19, 0.3))" }}
+            >
+              <path
+                d="M0,100 Q60,40 120,100 Q180,160 250,100"
+                fill="none"
+                stroke="url(#wave-shining-brown-gradient)"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+                style={{
+                  animation:
+                    "spiralLineGrow 10s ease-in-out infinite, metallicShine 3.5s ease-in-out infinite",
+                }}
+              />
+              <path
+                d="M20,150 Q80,90 140,150 Q200,210 250,150"
+                fill="none"
+                stroke="url(#wave-shining-brown-gradient)"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                style={{
+                  animation:
+                    "spiralLineGrow 8s ease-in-out infinite, metallicShine 4s ease-in-out infinite",
+                  animationDelay: "2s, 1s",
+                }}
+              />
+              <path
+                d="M10,50 Q70,10 130,50 Q190,90 250,50"
+                fill="none"
+                stroke="url(#wave-shining-brown-gradient)"
+                strokeWidth="1"
+                strokeLinecap="round"
+                style={{
+                  animation:
+                    "spiralLineGrow 12s ease-in-out infinite, metallicShine 2.8s ease-in-out infinite",
+                  animationDelay: "4s, 0.5s",
+                }}
+              />
+              <defs>
+                <linearGradient
+                  id="wave-shining-brown-gradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stopColor="#fff8dc" stopOpacity="1" />
+                  <stop offset="25%" stopColor="#f5deb3" stopOpacity="1" />
+                  <stop offset="50%" stopColor="#daa520" stopOpacity="1" />
+                  <stop offset="75%" stopColor="#8b4513" stopOpacity="0.9" />
+                  <stop offset="100%" stopColor="#5d4037" stopOpacity="0.8" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          {/* Additional Small Flowing Elements */}
+          <div
+            style={{
+              top: "60%",
+              left: "25%",
+              position: "absolute",
+              opacity: 0.6,
+              width: "120px",
+              height: "80px",
+            }}
+          >
+            <svg
+              width="120"
+              height="80"
+              viewBox="0 0 120 80"
+              style={{ filter: "drop-shadow(0 0 2px rgba(139, 69, 19, 0.4))" }}
+            >
+              <path
+                d="M0,40 Q30,10 60,40 Q90,70 120,40"
+                fill="none"
+                stroke="url(#small-shining-brown-gradient)"
+                strokeWidth="1"
+                strokeLinecap="round"
+                style={{
+                  animation:
+                    "spiralLineGrow 6s ease-in-out infinite, metallicShine 2.5s ease-in-out infinite",
+                }}
+              />
+              <defs>
+                <linearGradient
+                  id="small-shining-brown-gradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" stopColor="#d2b48c" stopOpacity="0.9" />
+                  <stop offset="50%" stopColor="#f5deb3" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#8b4513" stopOpacity="0.8" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <div
+            style={{
+              top: "75%",
+              right: "40%",
+              position: "absolute",
+              opacity: 0.65,
+              width: "100px",
+              height: "60px",
+            }}
+          >
+            <svg
+              width="100"
+              height="60"
+              viewBox="0 0 100 60"
+              style={{ filter: "drop-shadow(0 0 2px rgba(160, 82, 45, 0.3))" }}
+            >
+              <path
+                d="M0,30 Q25,5 50,30 Q75,55 100,30"
+                fill="none"
+                stroke="url(#tiny-shining-brown-gradient)"
+                strokeWidth="1.1"
+                strokeLinecap="round"
+                style={{
+                  animation:
+                    "spiralLineGrow 8s ease-in-out infinite, metallicShine 3s ease-in-out infinite",
+                  animationDelay: "1s, 0.8s",
+                }}
+              />
+              <defs>
+                <linearGradient
+                  id="tiny-shining-brown-gradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" stopColor="#654321" stopOpacity="0.9" />
+                  <stop offset="50%" stopColor="#ddbf94" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#a0522d" stopOpacity="0.8" />
+                </linearGradient>
+              </defs>
+            </svg>
           </div>
         </div>
 
@@ -568,13 +1270,37 @@ export default function LandingPage() {
               <div className="space-y-10 relative lg:col-span-2 text-center">
                 <div className="space-y-10 relative max-w-6xl mx-auto">
                   <h1 className="text-6xl lg:text-8xl font-extrabold text-gray-900 leading-tight tracking-tight mb-10 max-w-6xl mx-auto">
-                    <span className="block font-light text-gray-800 mb-2 tracking-wide">
+                    <span
+                      className="block font-light text-gray-800 mb-2 tracking-wide"
+                      style={{
+                        fontFamily: 'Georgia, "Times New Roman", Times, serif',
+                        fontStyle: "italic",
+                        fontWeight: "300",
+                        letterSpacing: "0.02em",
+                      }}
+                    >
                       New gen of
                     </span>
-                    <span className="block font-black bg-gradient-to-r from-gray-900 via-amber-500 to-yellow-600 bg-clip-text text-transparent tracking-tight">
+                    <span
+                      className="block font-black bg-gradient-to-r from-gray-900 via-amber-500 to-yellow-600 bg-clip-text text-transparent tracking-tight"
+                      style={{
+                        fontFamily: 'Georgia, "Times New Roman", Times, serif',
+                        fontStyle: "italic",
+                        fontWeight: "400",
+                        letterSpacing: "0.01em",
+                      }}
+                    >
                       digital currency
                     </span>
-                    <span className="block font-semibold text-4xl lg:text-6xl mt-4 text-gray-700 tracking-wide">
+                    <span
+                      className="block font-semibold text-4xl lg:text-6xl mt-4 text-gray-700 tracking-wide"
+                      style={{
+                        fontFamily: 'Georgia, "Times New Roman", Times, serif',
+                        fontStyle: "italic",
+                        fontWeight: "300",
+                        letterSpacing: "0.02em",
+                      }}
+                    >
                       creation platform
                     </span>
                   </h1>
@@ -661,248 +1387,6 @@ export default function LandingPage() {
               ))}
             </div>
           </div>
-        </div>
-
-        {/* Enhanced Decorative Background Elements */}
-        <div className="absolute inset-0 pointer-events-none z-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-200/20 rounded-full blur-3xl animate-pulse"></div>
-          <div
-            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-yellow-200/20 rounded-full blur-3xl animate-pulse"
-            style={{ animationDelay: "1s" }}
-          ></div>
-          <div
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-gradient-to-r from-amber-100/10 via-yellow-100/10 to-amber-100/10 rounded-full blur-3xl animate-pulse"
-            style={{ animationDelay: "2s" }}
-          ></div>
-
-          {/* Additional Diagonal Dot Grids with Different Rotations - Reduced opacity */}
-          <div className="absolute inset-0 opacity-[0.02]">
-            <div
-              className="diagonal-dot-grid"
-              style={{
-                transform: "rotate(15deg) scale(0.8)",
-                animationDelay: "1s",
-              }}
-            ></div>
-          </div>
-
-          <div className="absolute inset-0 opacity-[0.02]">
-            <div
-              className="diagonal-dot-grid-secondary"
-              style={{
-                transform: "rotate(-60deg) scale(1.1)",
-                animationDelay: "2s",
-              }}
-            ></div>
-          </div>
-
-          {/* Enhanced Floating Dots with Different Sizes - Reduced opacity */}
-          <div className="floating-dots" style={{ opacity: 0.4 }}>
-            <div
-              className="floating-dot"
-              style={{
-                top: "12%",
-                left: "25%",
-                animationDelay: "0.2s",
-                width: "4px",
-                height: "4px",
-              }}
-            ></div>
-            <div
-              className="floating-dot"
-              style={{
-                top: "30%",
-                left: "70%",
-                animationDelay: "0.8s",
-                width: "8px",
-                height: "8px",
-              }}
-            ></div>
-            <div
-              className="floating-dot"
-              style={{
-                top: "50%",
-                left: "10%",
-                animationDelay: "1.2s",
-                width: "3px",
-                height: "3px",
-              }}
-            ></div>
-            <div
-              className="floating-dot"
-              style={{
-                top: "65%",
-                left: "85%",
-                animationDelay: "1.8s",
-                width: "5px",
-                height: "5px",
-              }}
-            ></div>
-            <div
-              className="floating-dot"
-              style={{
-                top: "85%",
-                left: "40%",
-                animationDelay: "2.2s",
-                width: "7px",
-                height: "7px",
-              }}
-            ></div>
-            <div
-              className="floating-dot"
-              style={{
-                top: "20%",
-                left: "60%",
-                animationDelay: "2.8s",
-                width: "4px",
-                height: "4px",
-              }}
-            ></div>
-            <div
-              className="floating-dot"
-              style={{
-                top: "75%",
-                left: "15%",
-                animationDelay: "3.2s",
-                width: "6px",
-                height: "6px",
-              }}
-            ></div>
-            <div
-              className="floating-dot"
-              style={{
-                top: "40%",
-                left: "95%",
-                animationDelay: "3.8s",
-                width: "3px",
-                height: "3px",
-              }}
-            ></div>
-          </div>
-
-          {/* Shimmer Lines - Reduced opacity */}
-          <div
-            className="shimmer-line"
-            style={{ top: "20%", animationDelay: "0s", opacity: 0.3 }}
-          ></div>
-          <div
-            className="shimmer-line"
-            style={{ top: "60%", animationDelay: "1s", opacity: 0.3 }}
-          ></div>
-          <div
-            className="shimmer-line"
-            style={{ top: "80%", animationDelay: "2s", opacity: 0.3 }}
-          ></div>
-
-          {/* Sparkle Elements - Reduced opacity */}
-          <div
-            className="sparkle sparkle-small"
-            style={{
-              top: "15%",
-              left: "10%",
-              animationDelay: "0s",
-              opacity: 0.5,
-            }}
-          ></div>
-          <div
-            className="sparkle"
-            style={{
-              top: "25%",
-              left: "85%",
-              animationDelay: "0.5s",
-              opacity: 0.5,
-            }}
-          ></div>
-          <div
-            className="sparkle sparkle-large"
-            style={{
-              top: "45%",
-              left: "15%",
-              animationDelay: "1s",
-              opacity: 0.5,
-            }}
-          ></div>
-          <div
-            className="sparkle sparkle-small"
-            style={{
-              top: "35%",
-              left: "70%",
-              animationDelay: "1.5s",
-              opacity: 0.5,
-            }}
-          ></div>
-          <div
-            className="sparkle"
-            style={{
-              top: "65%",
-              left: "90%",
-              animationDelay: "2s",
-              opacity: 0.5,
-            }}
-          ></div>
-          <div
-            className="sparkle sparkle-large"
-            style={{
-              top: "75%",
-              left: "20%",
-              animationDelay: "2.5s",
-              opacity: 0.5,
-            }}
-          ></div>
-          <div
-            className="sparkle sparkle-small"
-            style={{
-              top: "85%",
-              left: "60%",
-              animationDelay: "3s",
-              opacity: 0.5,
-            }}
-          ></div>
-          <div
-            className="sparkle"
-            style={{
-              top: "55%",
-              left: "40%",
-              animationDelay: "3.5s",
-              opacity: 0.5,
-            }}
-          ></div>
-          <div
-            className="sparkle sparkle-small"
-            style={{
-              top: "15%",
-              left: "45%",
-              animationDelay: "4s",
-              opacity: 0.5,
-            }}
-          ></div>
-          <div
-            className="sparkle sparkle-large"
-            style={{
-              top: "90%",
-              left: "80%",
-              animationDelay: "4.5s",
-              opacity: 0.5,
-            }}
-          ></div>
-          <div
-            className="sparkle"
-            style={{
-              top: "30%",
-              left: "25%",
-              animationDelay: "5s",
-              opacity: 0.5,
-            }}
-          ></div>
-          <div
-            className="sparkle sparkle-small"
-            style={{
-              top: "70%",
-              left: "55%",
-              animationDelay: "5.5s",
-              opacity: 0.5,
-            }}
-          ></div>
         </div>
       </div>
     </>
