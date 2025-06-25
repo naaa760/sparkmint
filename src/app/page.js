@@ -2338,7 +2338,7 @@ export default function LandingPage() {
 
       {/* VIP Program Section */}
       <div
-        className="relative z-10 py-32 px-6 overflow-hidden"
+        className="relative z-10 pt-32 px-6 overflow-hidden"
         style={{
           background:
             "linear-gradient(135deg, #f5f5dc 0%, #ddbf94 15%, #8b7355 35%, #654321 55%, #2c1810 75%, #1a1a1a 90%, #000000 100%)",
@@ -2467,79 +2467,318 @@ export default function LandingPage() {
             </p>
 
             {/* Three Features */}
-            <div className="grid md:grid-cols-3 gap-12 lg:gap-16 mb-16">
-              {/* API integrations */}
-              <div className="text-center">
-                <div className="mb-4">
-                  <svg
-                    className="w-8 h-8 mx-auto text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 10V3L4 14h7v7l9-11h-7z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  API integrations
-                </h3>
-              </div>
+          </div>
+        </div>
+      </div>
 
-              {/* Lower fees */}
-              <div className="text-center">
-                <div className="mb-4">
-                  <svg
-                    className="w-8 h-8 mx-auto text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  Lower fees
-                </h3>
-              </div>
+      {/* One-Click Agent Deployment Section */}
+      <div className="relative z-10 py-32 px-6 bg-gray-50 overflow-hidden">
+        {/* Limited Grid Background Pattern - Top Area Only */}
+        <div
+          className="absolute top-0 left-0 right-0 h-1/2 opacity-15"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(0, 0, 0, 0.15) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0, 0, 0, 0.15) 1px, transparent 1px)
+            `,
+            backgroundSize: "100px 100px",
+          }}
+        ></div>
 
-              {/* Dedicated Account Manager */}
-              <div className="text-center">
-                <div className="mb-4">
-                  <svg
-                    className="w-8 h-8 mx-auto text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  Dedicated Account Manager
-                </h3>
+        {/* Secondary Grid Pattern - Bottom Right Corner */}
+        <div
+          className="absolute bottom-0 right-0 w-1/3 h-1/3 opacity-8"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0, 0, 0, 0.2) 1px, transparent 1px)
+            `,
+            backgroundSize: "200px 200px",
+          }}
+        ></div>
+
+        <div className="max-w-6xl mx-auto relative z-10">
+          {/* Section Title */}
+          <div className="text-center mb-20">
+            <h2 className="text-5xl lg:text-6xl leading-tight text-black mb-6">
+              <span className="font-light">One-Click Agent</span>
+              <br />
+              <span className="font-bold">Deployment</span>
+            </h2>
+          </div>
+
+          {/* Three Features Grid */}
+          <div className="grid md:grid-cols-3 gap-16 lg:gap-20 max-w-5xl mx-auto">
+            {/* Instant Tokenization */}
+            <div className="text-left">
+              <div className="mb-6">
+                <svg
+                  className="w-8 h-8 text-black"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-black mb-4">
+                Instant Tokenization
+              </h3>
+              <p className="text-gray-700 text-base leading-relaxed">
+                Create your first tokenized agent in less than 5 minutes.
+              </p>
+            </div>
+
+            {/* Fair Stealth Launch */}
+            <div className="text-left">
+              <div className="mb-6">
+                <svg
+                  className="w-8 h-8 text-black"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-black mb-4">
+                Fair Stealth Launch
+              </h3>
+              <p className="text-gray-700 text-base leading-relaxed">
+                Launch your token with a custom randomization algorithm for
+                maximum launch protection.
+              </p>
+            </div>
+
+            {/* Build Now, Tokenize Later */}
+            <div className="text-left">
+              <div className="mb-6">
+                <svg
+                  className="w-8 h-8 text-black"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M7 11l5-5m0 0l5 5m-5-5v12"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-black mb-4">
+                Build Now, Tokenize Later
+              </h3>
+              <p className="text-gray-700 text-base leading-relaxed">
+                Build your agent and prime it's growth before releasing it's
+                native token.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bring AI to Solana Section */}
+      <div
+        className="relative z-10 py-32 px-6 overflow-hidden"
+        style={{ backgroundColor: "#faf9ff" }}
+      >
+        <div className="max-w-5xl mx-auto text-center relative z-20">
+          {/* Main Title */}
+          <h2 className="text-6xl lg:text-7xl leading-tight text-black mb-6">
+            <span className="font-normal">Bring AI to Solana</span>
+            <br />
+            <span className="font-light text-gray-600">for 1M+ users</span>
+          </h2>
+
+          {/* Subtitle */}
+          <p className="text-xl text-gray-600 mb-12 font-normal">
+            Build, scale, and adopt AI with Tars today.
+          </p>
+
+          {/* CTA Button */}
+          <button className="bg-gray-900 hover:bg-black text-white px-10 py-4 rounded-xl font-medium text-lg transition-all duration-300 inline-flex items-center gap-3 shadow-lg">
+            Adopt now
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* SEDA Platform Section */}
+
+      {/* Payment Website Recreation Section */}
+      <div className="relative z-10 py-20 px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          {/* Header with Logo and Title */}
+          <div className="text-center mb-32">
+            {/* Blue Circle Logo */}
+            <div className="flex justify-center mb-12">
+              <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-2xl font-bold">C</span>
               </div>
             </div>
 
-            {/* Learn More Button */}
+            {/* Main Heading */}
+            <h1 className="text-5xl lg:text-6xl font-normal text-black leading-tight max-w-4xl mx-auto">
+              Simplifying payments for
+              <br />
+              web3 businesses.
+            </h1>
+          </div>
+
+          {/* Footer Links Section */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-12 lg:gap-16 text-sm">
+            {/* Features Column */}
             <div>
-              <button className="bg-transparent border border-gray-400 text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-700 hover:border-gray-300 transition-all duration-300">
-                Learn more
-              </button>
+              <h3 className="font-medium text-black mb-6">Features</h3>
+              <ul className="space-y-4 text-gray-600">
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    Payment Links
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    Recurring Billing
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    Integrations
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Use-cases Column */}
+            <div>
+              <h3 className="font-medium text-black mb-6">Use-cases</h3>
+              <ul className="space-y-4 text-gray-600">
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    E-Commerce
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    Donation
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    Ticketing
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    Send money to India
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Developers Column */}
+            <div>
+              <h3 className="font-medium text-black mb-6">Developers</h3>
+              <ul className="space-y-4 text-gray-600">
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    Documentation
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    API Reference
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Resources Column */}
+            <div>
+              <h3 className="font-medium text-black mb-6">Resources</h3>
+              <ul className="space-y-4 text-gray-600">
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    Tutorials
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    Blogs
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    Telegram community
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* About Column */}
+            <div>
+              <h3 className="font-medium text-black mb-6">About</h3>
+              <ul className="space-y-4 text-gray-600">
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    Brand kit
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    Pricing
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    Changelog
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    Contact us
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    Terms and condition
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    Privacy policy
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-black transition-colors">
+                    Submit feedback
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
