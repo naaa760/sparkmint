@@ -12,6 +12,7 @@ export default function LandingPage() {
   const [showSplash, setShowSplash] = useState(true);
   const [scrollY, setScrollY] = useState(0);
   const [bubbles, setBubbles] = useState([]);
+  const [waterBubbles, setWaterBubbles] = useState([]);
 
   useEffect(() => {
     if (isLoaded && user) {
@@ -131,35 +132,41 @@ export default function LandingPage() {
     // Hide splash screen after animation completes
     const timer = setTimeout(() => {
       setShowSplash(false);
-    }, 4500); // 3s flip + 1.5s fade out
+    }, 4000); // 2s flip + 1.5s fade out + 0.5s buffer
 
     return () => clearTimeout(timer);
   }, []);
 
+  // Generate water bubbles
+  useEffect(() => {
+    if (showSplash) {
+      const bubblePieces = [];
+      for (let i = 0; i < 30; i++) {
+        bubblePieces.push({
+          id: i,
+          left: Math.random() * 100,
+          animationDelay: Math.random() * 4,
+          size: Math.random() * 15 + 5, // 5px to 20px
+          opacity: Math.random() * 0.5 + 0.3, // 0.3 to 0.8
+          duration: Math.random() * 2 + 3, // 3s to 5s
+        });
+      }
+      setWaterBubbles(bubblePieces);
+    }
+  }, [showSplash]);
+
   return (
     <>
       <style jsx>{`
-        @keyframes phoneFlip {
+        @keyframes coinFlip {
           0% {
             transform: rotateY(0deg) scale(1);
           }
-          16.66% {
+          50% {
             transform: rotateY(180deg) scale(1.1);
           }
-          33.33% {
-            transform: rotateY(360deg) scale(1);
-          }
-          50% {
-            transform: rotateY(540deg) scale(1.1);
-          }
-          66.66% {
-            transform: rotateY(720deg) scale(1);
-          }
-          83.33% {
-            transform: rotateY(900deg) scale(1.1);
-          }
           100% {
-            transform: rotateY(1080deg) scale(1);
+            transform: rotateY(360deg) scale(1);
           }
         }
 
@@ -484,13 +491,31 @@ export default function LandingPage() {
           }
         }
 
-        .phone-flip-animation {
-          animation: phoneFlip 3s ease-in-out;
+        @keyframes waterBubbleFloat {
+          0% {
+            transform: translateY(-20vh) translateX(0px) scale(0.3);
+            opacity: 0;
+          }
+          10% {
+            opacity: 1;
+          }
+          50% {
+            transform: translateY(50vh) translateX(10px) scale(1);
+            opacity: 0.8;
+          }
+          100% {
+            transform: translateY(120vh) translateX(-5px) scale(0.5);
+            opacity: 0;
+          }
+        }
+
+        .coin-flip-animation {
+          animation: coinFlip 2s ease-in-out;
           transform-style: preserve-3d;
         }
 
         .splash-screen {
-          animation: fadeOut 1.5s ease-out 3s forwards;
+          animation: fadeOut 1.5s ease-out 2.5s forwards;
         }
 
         .light-ray {
@@ -947,21 +972,71 @@ export default function LandingPage() {
             animation: floatPattern 6s ease-in-out infinite;
           }
         }
+
+        .water-bubble {
+          position: absolute;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle at 30% 30%,
+            rgba(173, 216, 230, 0.8) 0%,
+            rgba(135, 206, 235, 0.6) 30%,
+            rgba(70, 130, 180, 0.4) 60%,
+            rgba(25, 25, 112, 0.2) 100%
+          );
+          box-shadow: inset -3px -3px 8px rgba(255, 255, 255, 0.6),
+            inset 3px 3px 8px rgba(0, 0, 0, 0.1),
+            0 4px 15px rgba(70, 130, 180, 0.3);
+          backdrop-filter: blur(1px);
+          border: 1px solid rgba(173, 216, 230, 0.4);
+          animation: waterBubbleFloat ease-out infinite;
+        }
+
+        .water-bubble::before {
+          content: "";
+          position: absolute;
+          top: 20%;
+          left: 25%;
+          width: 30%;
+          height: 30%;
+          background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.9) 0%,
+            rgba(255, 255, 255, 0.4) 70%,
+            transparent 100%
+          );
+          border-radius: 50%;
+          filter: blur(1px);
+        }
       `}</style>
 
       {/* Splash Screen */}
       {showSplash && (
         <div className="fixed inset-0 z-[100] bg-black flex items-center justify-center splash-screen">
-          <div className="phone-flip-animation">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-64 lg:w-80 h-auto object-contain drop-shadow-2xl rounded-2xl"
-            >
-              <source src="/pandaaa.mp4" type="video/mp4" />
-            </video>
+          {/* Water Bubbles */}
+          {waterBubbles.map((bubble) => (
+            <div
+              key={bubble.id}
+              className="water-bubble"
+              style={{
+                left: `${bubble.left}%`,
+                width: `${bubble.size}px`,
+                height: `${bubble.size}px`,
+                opacity: bubble.opacity,
+                animationDelay: `${bubble.animationDelay}s`,
+                animationDuration: `${bubble.duration}s`,
+              }}
+            />
+          ))}
+
+          {/* Coin Image */}
+          <div className="coin-flip-animation">
+            <Image
+              src="/bbiit.png"
+              alt="Coin"
+              width={256}
+              height={256}
+              className="w-64 lg:w-80 h-auto object-contain drop-shadow-2xl"
+            />
           </div>
         </div>
       )}
