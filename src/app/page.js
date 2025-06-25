@@ -1836,7 +1836,7 @@ export default function LandingPage() {
               Unlock crypto rails.
             </h2>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto font-light tracking-wide leading-relaxed">
-              Whether you're building in-app wallets or launching your own
+              Whether you&apos;re building in-app wallets or launching your own
               fleet, we help you meet users where they are.
             </p>
             <div className="mt-8">
