@@ -45,8 +45,66 @@ export default function LandingPage() {
       }
     };
 
+    // Intersection Observer for scroll-triggered sections
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -200px 0px",
+    };
+
+    const handleIntersection = (entries) => {
+      entries.forEach((entry) => {
+        const section = entry.target;
+        const image = section.querySelector(".scroll-reveal-image");
+        const sectionNumber = section.getAttribute("data-section");
+
+        if (entry.isIntersecting) {
+          // Show current section
+          section.classList.add("revealed");
+          if (image) {
+            setTimeout(() => {
+              image.classList.remove("opacity-0", "translate-y-12");
+              image.classList.add("opacity-100", "translate-y-0");
+            }, 100);
+          }
+
+          // Hide other sections
+          const allSections = document.querySelectorAll(
+            ".scroll-reveal-section"
+          );
+          allSections.forEach((otherSection) => {
+            const otherSectionNumber =
+              otherSection.getAttribute("data-section");
+            const otherImage = otherSection.querySelector(
+              ".scroll-reveal-image"
+            );
+
+            if (otherSectionNumber !== sectionNumber) {
+              otherSection.classList.remove("revealed");
+              if (otherImage) {
+                otherImage.classList.remove("opacity-100", "translate-y-0");
+                otherImage.classList.add("opacity-0", "translate-y-12");
+              }
+            }
+          });
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      handleIntersection,
+      observerOptions
+    );
+
+    // Observe all scroll reveal sections
+    const sections = document.querySelectorAll(".scroll-reveal-section");
+    sections.forEach((section) => observer.observe(section));
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   // Update bubble positions
@@ -383,6 +441,45 @@ export default function LandingPage() {
           100% {
             transform: translateX(100vw) translateY(-50%) rotate(60deg);
             opacity: 0;
+          }
+        }
+
+        @keyframes continuousFlow {
+          0% {
+            transform: translateX(0px) translateY(0px);
+          }
+          25% {
+            transform: translateX(5px) translateY(-2px);
+          }
+          50% {
+            transform: translateX(0px) translateY(-5px);
+          }
+          75% {
+            transform: translateX(-5px) translateY(-2px);
+          }
+          100% {
+            transform: translateX(0px) translateY(0px);
+          }
+        }
+
+        @keyframes rotatePattern {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes floatPattern {
+          0% {
+            transform: translateY(0px) scale(1);
+          }
+          50% {
+            transform: translateY(-4px) scale(1.02);
+          }
+          100% {
+            transform: translateY(0px) scale(1);
           }
         }
 
@@ -775,12 +872,79 @@ export default function LandingPage() {
           }
         }
 
+        @keyframes moving3DShadow {
+          0% {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6),
+              0 25px 50px -12px rgba(59, 130, 246, 0.4),
+              0 0 0 1px rgba(255, 255, 255, 0.1);
+            transform: translateX(0px);
+          }
+          25% {
+            box-shadow: -30px 25px 60px -12px rgba(0, 0, 0, 0.7),
+              -30px 25px 60px -12px rgba(59, 130, 246, 0.5),
+              0 0 0 1px rgba(255, 255, 255, 0.1);
+            transform: translateX(-8px);
+          }
+          50% {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6),
+              0 25px 50px -12px rgba(59, 130, 246, 0.4),
+              0 0 0 1px rgba(255, 255, 255, 0.1);
+            transform: translateX(0px);
+          }
+          75% {
+            box-shadow: 30px 25px 60px -12px rgba(0, 0, 0, 0.7),
+              30px 25px 60px -12px rgba(59, 130, 246, 0.5),
+              0 0 0 1px rgba(255, 255, 255, 0.1);
+            transform: translateX(8px);
+          }
+          100% {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6),
+              0 25px 50px -12px rgba(59, 130, 246, 0.4),
+              0 0 0 1px rgba(255, 255, 255, 0.1);
+            transform: translateX(0px);
+          }
+        }
+
         .animate-scroll-infinite {
           animation: scroll-infinite 30s linear infinite;
         }
 
         .animate-scroll-infinite:hover {
           animation-play-state: paused;
+        }
+
+        .animate-moving-3d-shadow {
+          animation: moving3DShadow 6s ease-in-out infinite;
+        }
+
+        .pattern-flow {
+          animation: continuousFlow 12s ease-in-out infinite;
+        }
+
+        @media (min-width: 768px) {
+          .pattern-flow {
+            animation: continuousFlow 8s ease-in-out infinite;
+          }
+        }
+
+        .pattern-rotate {
+          animation: rotatePattern 40s linear infinite;
+        }
+
+        @media (min-width: 768px) {
+          .pattern-rotate {
+            animation: rotatePattern 20s linear infinite;
+          }
+        }
+
+        .pattern-float {
+          animation: floatPattern 10s ease-in-out infinite;
+        }
+
+        @media (min-width: 768px) {
+          .pattern-float {
+            animation: floatPattern 6s ease-in-out infinite;
+          }
         }
       `}</style>
 
@@ -1383,45 +1547,56 @@ export default function LandingPage() {
                   <h1
                     className="text-5xl lg:text-7xl leading-tight mb-10 max-w-6xl mx-auto"
                     style={{
-                      fontFamily:
-                        '"Inter", "Helvetica Neue", Arial, sans-serif',
+                      fontFamily: 'Georgia, "Times New Roman", Times, serif',
                     }}
                   >
                     <span
                       className="block mb-2"
                       style={{
-                        fontWeight: "700",
-                        letterSpacing: "-0.02em",
+                        fontWeight: "800",
+                        letterSpacing: "-0.01em",
                         color: "#1a1a1a",
                         textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
                         filter: "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2))",
                       }}
                     >
-                      New gen of
+                      <span style={{ fontStyle: "italic", fontWeight: "300" }}>
+                        New
+                      </span>{" "}
+                      <span style={{ fontWeight: "800" }}>gen</span>{" "}
+                      <span style={{ fontStyle: "italic", fontWeight: "300" }}>
+                        of
+                      </span>
                     </span>
                     <span
                       className="block"
                       style={{
-                        fontWeight: "700",
-                        letterSpacing: "-0.02em",
+                        fontWeight: "800",
+                        letterSpacing: "-0.01em",
                         color: "#2d1810",
                         textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
                         filter: "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2))",
                       }}
                     >
-                      digital currency
+                      <span style={{ fontStyle: "italic", fontWeight: "300" }}>
+                        digital
+                      </span>{" "}
+                      <span style={{ fontWeight: "800" }}>currency</span>
                     </span>
                     <span
                       className="block text-3xl lg:text-5xl mt-4"
                       style={{
-                        fontWeight: "700",
-                        letterSpacing: "-0.02em",
+                        fontWeight: "800",
+                        letterSpacing: "-0.01em",
                         color: "#4a2c1a",
                         textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
                         filter: "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2))",
                       }}
                     >
-                      creation platform
+                      <span style={{ fontWeight: "800" }}>creation</span>{" "}
+                      <span style={{ fontStyle: "italic", fontWeight: "300" }}>
+                        platform
+                      </span>
                     </span>
                   </h1>
 
@@ -1496,6 +1671,12 @@ export default function LandingPage() {
             "linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 15%, #2d1b1f 35%, #3d2b2f 55%, #4a2c2a 75%, #5d3a2f 90%, #6b4423 100%)",
         }}
       >
+        {/* Smooth transition from previous section */}
+        <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-gray-900/40 via-gray-800/30 to-transparent z-20 rounded-t-3xl"></div>
+
+        {/* Smooth transition to next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent via-amber-100/10 to-white/20 z-20 rounded-b-3xl"></div>
+
         {/* Star/sparkle decorations */}
         <div className="absolute inset-0 overflow-hidden">
           {/* Corner decorative star elements - Now visible on all screen sizes */}
@@ -1739,6 +1920,12 @@ export default function LandingPage() {
 
       {/* Full Coverage List Section */}
       <div className="relative z-10 py-20 px-6 bg-white">
+        {/* Smooth transition from previous section */}
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-amber-100/20 via-white/60 to-transparent z-20"></div>
+
+        {/* Smooth transition to next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-gray-50/30 to-gray-100/20 z-20"></div>
+
         <div className="max-w-7xl mx-auto">
           <div className="text-left mb-16">
             <h2 className="text-2xl lg:text-2xl font-bold text-gray-900 mb-4">
@@ -1833,6 +2020,526 @@ export default function LandingPage() {
                   className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
                 />
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* AI for investors Section */}
+      <div className="relative z-10 py-20 px-6 bg-white overflow-hidden">
+        {/* Smooth transition from previous section */}
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-gray-100/20 via-white/40 to-transparent z-20"></div>
+
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-20 md:opacity-30">
+          {/* Curved Wave Pattern */}
+          <div
+            className="absolute inset-0 pattern-flow"
+            style={{
+              backgroundImage: [
+                "radial-gradient(circle at 25% 25%, rgba(192, 192, 192, 0.4) 1px, transparent 1px)",
+                "radial-gradient(circle at 75% 75%, rgba(192, 192, 192, 0.3) 1px, transparent 1px)",
+                "radial-gradient(circle at 50% 50%, rgba(192, 192, 192, 0.2) 0.5px, transparent 0.5px)",
+              ].join(", "),
+              backgroundSize: "40px 40px, 60px 60px, 20px 20px",
+            }}
+          ></div>
+
+          {/* Organic Flowing Lines - Hidden on mobile */}
+          <div
+            className="absolute inset-0 pattern-rotate hidden md:block"
+            style={{
+              backgroundImage: [
+                "conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(192, 192, 192, 0.3) 45deg, transparent 90deg, rgba(192, 192, 192, 0.2) 135deg, transparent 180deg, rgba(192, 192, 192, 0.3) 225deg, transparent 270deg, rgba(192, 192, 192, 0.2) 315deg, transparent 360deg)",
+              ],
+              backgroundSize: "150px 150px",
+            }}
+          ></div>
+
+          {/* Scattered Sparkle Dots */}
+          <div
+            className="absolute inset-0 pattern-float"
+            style={{
+              backgroundImage: [
+                "radial-gradient(ellipse at 20% 80%, rgba(192, 192, 192, 0.4) 0.5px, transparent 1px)",
+                "radial-gradient(ellipse at 80% 20%, rgba(192, 192, 192, 0.3) 1px, transparent 2px)",
+                "radial-gradient(ellipse at 40% 40%, rgba(192, 192, 192, 0.3) 0.5px, transparent 1px)",
+                "radial-gradient(ellipse at 60% 80%, rgba(192, 192, 192, 0.3) 0.5px, transparent 1px)",
+                "radial-gradient(ellipse at 90% 60%, rgba(192, 192, 192, 0.2) 1px, transparent 2px)",
+              ].join(", "),
+              backgroundSize:
+                "80px 80px, 100px 100px, 50px 50px, 90px 90px, 60px 60px",
+            }}
+          ></div>
+
+          {/* Subtle Curved Lines - Responsive */}
+          <svg
+            className="absolute inset-0 w-full h-full pattern-flow hidden sm:block"
+            style={{ opacity: 0.15 }}
+          >
+            <defs>
+              <pattern
+                id="curves"
+                x="0"
+                y="0"
+                width="200"
+                height="150"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M 0 75 Q 50 40 100 75 T 200 75"
+                  stroke="rgba(192, 192, 192, 0.4)"
+                  strokeWidth="0.8"
+                  fill="none"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M 0 100 Q 75 80 150 100 Q 175 110 200 100"
+                  stroke="rgba(192, 192, 192, 0.2)"
+                  strokeWidth="1"
+                  fill="none"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M 0 40 Q 100 60 200 40"
+                  stroke="rgba(192, 192, 192, 0.3)"
+                  strokeWidth="0.6"
+                  fill="none"
+                  strokeLinecap="round"
+                />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#curves)" />
+          </svg>
+
+          {/* Brown Tint Overlay */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, rgba(160, 82, 45, 0.03) 0%, rgba(139, 69, 19, 0.01) 50%, transparent 100%)",
+            }}
+          ></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Left Content */}
+            <div className="space-y-8">
+              {/* Logo and title */}
+              <div className="flex items-center space-x-3 mb-8">
+                <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">α</span>
+                </div>
+                <span className="text-lg font-medium text-gray-900">alpha</span>
+              </div>
+
+              <div className="space-y-6">
+                <h3
+                  className="text-2xl lg:text-3xl font-normal text-black leading-tight"
+                  style={{
+                    fontFamily: 'Georgia, "Times New Roman", Times, serif',
+                  }}
+                >
+                  Investment research and proactive insights
+                </h3>
+              </div>
+
+              {/* Features list */}
+              <div className="space-y-6 pt-8">
+                <div className="flex items-start space-x-4">
+                  <p className="text-lg text-gray-900 font-medium">
+                    Ask any question about any stock.
+                  </p>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <p className="text-lg text-gray-900 font-medium">
+                    Receive earnings call breakdowns the minute they hang up.
+                  </p>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <p className="text-lg text-gray-900 font-medium">
+                    Know why a stock is moving—not just that it is.
+                  </p>
+                </div>
+              </div>
+
+              {/* Alpha Disclosures */}
+              <div className="pt-8">
+                <div className="flex items-center space-x-2 text-blue-600">
+                  <div className="w-4 h-4 border border-blue-600 rounded-full flex items-center justify-center"></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Content - Video */}
+            <div className="relative flex justify-center lg:justify-end">
+              <div className="relative">
+                {/* Video Container */}
+                <div className="w-80 h-96 rounded-3xl shadow-2xl">
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover rounded-3xl"
+                  >
+                    <source src="/crypt.mp4" type="video/mp4" />
+                  </video>
+                </div>
+
+                {/* Background decoration */}
+                <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full opacity-20 blur-xl"></div>
+                <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full opacity-20 blur-xl"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Simple, fast & secure Section - NEW SECTION */}
+      <div className="relative z-10 py-32 px-6 bg-gradient-to-br from-purple-50 via-white to-blue-50 overflow-hidden">
+        {/* Smooth transition to next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-purple-50/50 to-transparent opacity-60 z-20"></div>
+
+        {/* Partial Grid Pattern Areas */}
+        <div className="absolute inset-0">
+          {/* Top Left Grid Area - Diagonal */}
+          <div
+            className="absolute top-0 left-0 w-80 h-80 opacity-30 transform rotate-45"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(192, 192, 192, 0.6) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(192, 192, 192, 0.6) 1px, transparent 1px)
+              `,
+              backgroundSize: "30px 30px",
+              filter: "drop-shadow(0 0 2px rgba(255, 255, 255, 0.5))",
+            }}
+          ></div>
+
+          {/* Top Right Grid Area - Diagonal */}
+          <div
+            className="absolute top-0 right-0 w-96 h-96 opacity-25 transform -rotate-45"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(169, 169, 169, 0.5) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(169, 169, 169, 0.5) 1px, transparent 1px)
+              `,
+              backgroundSize: "25px 25px",
+              filter: "drop-shadow(0 0 3px rgba(255, 255, 255, 0.4))",
+            }}
+          ></div>
+
+          {/* Bottom Center Grid Area - Diagonal */}
+          <div
+            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-72 h-64 opacity-25 rotate-12"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(211, 211, 211, 0.6) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(211, 211, 211, 0.6) 1px, transparent 1px)
+              `,
+              backgroundSize: "35px 35px",
+              filter: "drop-shadow(0 0 2px rgba(255, 255, 255, 0.6))",
+            }}
+          ></div>
+
+          {/* Small Grid Pattern Behind Title - Diagonal */}
+          <div
+            className="absolute top-16 left-1/2 transform -translate-x-1/2 w-96 h-32 opacity-20 rotate-30"
+            style={{
+              backgroundImage: `radial-gradient(circle, rgba(192, 192, 192, 0.5) 2px, transparent 2px)`,
+              backgroundSize: "20px 20px",
+              filter: "drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))",
+            }}
+          ></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          {/* Section Title */}
+          <div className="text-center mb-20">
+            <h2 className="text-5xl lg:text-6xl font-semibold text-gray-800 tracking-tight mb-4">
+              Simple, fast & secure
+            </h2>
+          </div>
+
+          {/* Three Cards Layout - Triangular arrangement */}
+          <div className="relative">
+            {/* Top Row - Two Cards */}
+            <div className="grid md:grid-cols-2 gap-16 lg:gap-24 mb-20 lg:mb-32">
+              {/* Card 1 - Secured and Decentralized */}
+              <div className="text-center group">
+                <div className="flex justify-center mb-8">
+                  <div className="w-32 h-32 lg:w-40 lg:h-40 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                    <img
+                      src="/jk.png"
+                      alt="Secured and Decentralized"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
+                <h3 className="text-2xl lg:text-3xl font-semibold text-gray-800 mb-4">
+                  Secured and Decentralized
+                </h3>
+                <p className="text-gray-600 text-lg leading-relaxed max-w-sm mx-auto">
+                  Experience full spectrum of blockchain features
+                  <br />
+                  with our non-custodial wallet.
+                </p>
+              </div>
+
+              {/* Card 2 - We got you covered */}
+              <div className="text-center group">
+                <div className="flex justify-center mb-8">
+                  <div className="w-32 h-32 lg:w-40 lg:h-40 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                    <img
+                      src="/jk1.png"
+                      alt="We got you covered"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
+                <h3 className="text-2xl lg:text-3xl font-semibold text-gray-800 mb-4">
+                  We got you covered
+                </h3>
+                <p className="text-gray-600 text-lg leading-relaxed max-w-sm mx-auto">
+                  Both Mastercard and Visa cards are supported
+                  <br />
+                  to give you what you need.
+                </p>
+              </div>
+            </div>
+
+            {/* Bottom Row - One Card Centered */}
+            <div className="flex justify-center">
+              <div className="text-center group max-w-md">
+                <div className="flex justify-center mb-8">
+                  <div className="w-32 h-32 lg:w-40 lg:h-40 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                    <img
+                      src="/jk3.png"
+                      alt="Optimize your cashflow"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
+                <h3 className="text-2xl lg:text-3xl font-semibold text-gray-800 mb-4">
+                  Optimize your cashflow
+                </h3>
+                <p className="text-gray-600 text-lg leading-relaxed">
+                  Use our wallet to pay your bills, split bills, transfer and
+                  more. All from one place.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* VIP Program Section */}
+      <div
+        className="relative z-10 py-32 px-6 overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(135deg, #f5f5dc 0%, #ddbf94 15%, #8b7355 35%, #654321 55%, #2c1810 75%, #1a1a1a 90%, #000000 100%)",
+        }}
+      >
+        {/* Smooth transition from previous section */}
+        <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-blue-50/30 via-purple-50/20 to-transparent z-20"></div>
+
+        {/* Smooth transition to next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent via-gray-900/20 to-gray-900/40 z-20"></div>
+
+        {/* Beige Spike/Sleek Line Effects */}
+        <div className="absolute inset-0">
+          {/* Diagonal Spike Lines - Top Left */}
+          <div className="absolute top-0 left-0 w-full h-full">
+            <svg
+              className="absolute top-0 left-0 w-full h-full"
+              viewBox="0 0 1200 800"
+            >
+              {/* Sharp angular lines */}
+              <path
+                d="M 0 100 L 200 50 L 400 150 L 600 80 L 800 200 L 1000 120 L 1200 180"
+                stroke="rgba(245, 245, 220, 0.25)"
+                strokeWidth="2"
+                fill="none"
+                strokeLinecap="round"
+              />
+              <path
+                d="M 0 200 L 300 120 L 500 250 L 700 180 L 900 320 L 1200 280"
+                stroke="rgba(139, 69, 19, 0.2)"
+                strokeWidth="1.5"
+                fill="none"
+                strokeLinecap="round"
+              />
+              <path
+                d="M 0 350 L 250 280 L 450 400 L 650 320 L 850 450 L 1200 420"
+                stroke="rgba(160, 82, 45, 0.15)"
+                strokeWidth="1"
+                fill="none"
+                strokeLinecap="round"
+              />
+            </svg>
+          </div>
+
+          {/* Diagonal Spike Lines - Bottom Right */}
+          <div className="absolute bottom-0 right-0 w-full h-full">
+            <svg
+              className="absolute bottom-0 right-0 w-full h-full transform rotate-180"
+              viewBox="0 0 1200 800"
+            >
+              <path
+                d="M 0 100 L 200 50 L 400 150 L 600 80 L 800 200 L 1000 120 L 1200 180"
+                stroke="rgba(245, 245, 220, 0.18)"
+                strokeWidth="2"
+                fill="none"
+                strokeLinecap="round"
+              />
+              <path
+                d="M 0 200 L 300 120 L 500 250 L 700 180 L 900 320 L 1200 280"
+                stroke="rgba(139, 69, 19, 0.12)"
+                strokeWidth="1.5"
+                fill="none"
+                strokeLinecap="round"
+              />
+            </svg>
+          </div>
+
+          {/* Scattered Beige Dots */}
+          <div className="absolute inset-0">
+            <div
+              className="absolute top-20 left-20 w-2 h-2 bg-beige-200 rounded-full"
+              style={{ backgroundColor: "rgba(245, 245, 220, 0.3)" }}
+            ></div>
+            <div
+              className="absolute top-40 right-32 w-1 h-1 bg-beige-200 rounded-full"
+              style={{ backgroundColor: "rgba(139, 69, 19, 0.25)" }}
+            ></div>
+            <div
+              className="absolute bottom-32 left-40 w-1.5 h-1.5 bg-beige-200 rounded-full"
+              style={{ backgroundColor: "rgba(160, 82, 45, 0.28)" }}
+            ></div>
+            <div
+              className="absolute bottom-20 right-20 w-2 h-2 bg-beige-200 rounded-full"
+              style={{ backgroundColor: "rgba(245, 245, 220, 0.22)" }}
+            ></div>
+            <div
+              className="absolute top-1/2 left-1/4 w-1 h-1 bg-beige-200 rounded-full"
+              style={{ backgroundColor: "rgba(139, 69, 19, 0.2)" }}
+            ></div>
+            <div
+              className="absolute top-1/3 right-1/4 w-1.5 h-1.5 bg-beige-200 rounded-full"
+              style={{ backgroundColor: "rgba(160, 82, 45, 0.24)" }}
+            ></div>
+          </div>
+
+          {/* Subtle Gradient Overlay */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, rgba(245, 245, 220, 0.05) 0%, transparent 70%)",
+            }}
+          ></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center">
+            {/* VIP Program Label */}
+            <div className="mb-8">
+              <span className="text-gray-300 text-lg font-medium tracking-wide">
+                VIP program
+              </span>
+            </div>
+
+            {/* Main Title */}
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-8 leading-tight max-w-4xl mx-auto">
+              When you need more than
+              <br />
+              just a crypto exchange
+            </h2>
+
+            {/* Subtitle */}
+            <p className="text-gray-200 text-lg lg:text-xl mb-16 max-w-3xl mx-auto leading-relaxed">
+              Access world-class APIs, a lower fee structure and a dedicated
+              Account Manager.
+            </p>
+
+            {/* Three Features */}
+            <div className="grid md:grid-cols-3 gap-12 lg:gap-16 mb-16">
+              {/* API integrations */}
+              <div className="text-center">
+                <div className="mb-4">
+                  <svg
+                    className="w-8 h-8 mx-auto text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-2">
+                  API integrations
+                </h3>
+              </div>
+
+              {/* Lower fees */}
+              <div className="text-center">
+                <div className="mb-4">
+                  <svg
+                    className="w-8 h-8 mx-auto text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-2">
+                  Lower fees
+                </h3>
+              </div>
+
+              {/* Dedicated Account Manager */}
+              <div className="text-center">
+                <div className="mb-4">
+                  <svg
+                    className="w-8 h-8 mx-auto text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-2">
+                  Dedicated Account Manager
+                </h3>
+              </div>
+            </div>
+
+            {/* Learn More Button */}
+            <div>
+              <button className="bg-transparent border border-gray-400 text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-700 hover:border-gray-300 transition-all duration-300">
+                Learn more
+              </button>
             </div>
           </div>
         </div>
