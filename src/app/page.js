@@ -3,6 +3,7 @@
 import { SignInButton, SignUpButton, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function LandingPage() {
   const { user, isLoaded } = useUser();
@@ -1804,9 +1805,11 @@ export default function LandingPage() {
 
         {/* Side decorative images for the entire section */}
         <div className="absolute left-0 top-1/2 transform -translate-y-1/2 hidden lg:block opacity-70">
-          <img
+          <Image
             src="/ssi.png"
             alt="Decorative element"
+            width={144}
+            height={384}
             className="w-36 h-96 object-cover rounded-lg"
             style={{
               filter: "brightness(1.3) contrast(1.1)",
@@ -1815,9 +1818,11 @@ export default function LandingPage() {
         </div>
 
         <div className="absolute right-0 top-1/2 transform -translate-y-1/2 hidden lg:block opacity-70">
-          <img
+          <Image
             src="/ssi.png"
             alt="Decorative element"
+            width={144}
+            height={384}
             className="w-36 h-96 object-cover rounded-lg"
             style={{
               filter: "brightness(1.3) contrast(1.1)",
@@ -1860,9 +1865,11 @@ export default function LandingPage() {
           <div className="flex flex-col md:flex-row justify-center items-center md:items-end space-y-6 md:space-y-0 md:space-x-8 lg:space-x-12">
             {/* Secure by design */}
             <div className="relative w-64 h-48 sm:w-72 sm:h-52 md:w-48 md:h-48 lg:w-64 lg:h-64 transform hover:scale-105 transition-transform duration-300">
-              <img
+              <Image
                 src="/11.png"
                 alt="Secure by design"
+                width={256}
+                height={256}
                 className="w-full h-full object-cover opacity-95 hover:opacity-100 transition-opacity duration-300 rounded-lg"
                 style={{ backgroundColor: "transparent" }}
               />
@@ -1879,9 +1886,11 @@ export default function LandingPage() {
 
             {/* Whitelabel and modular - Taller on desktop, normal on mobile */}
             <div className="relative w-64 h-48 sm:w-72 sm:h-52 md:w-48 md:h-64 lg:w-64 lg:h-80 transform hover:scale-105 transition-transform duration-300">
-              <img
+              <Image
                 src="/12.png"
                 alt="Whitelabel and modular"
+                width={256}
+                height={320}
                 className="w-full h-full object-cover opacity-95 hover:opacity-100 transition-opacity duration-300 rounded-lg"
               />
               {/* Overlaid content - minimal opacity to show image clearly */}
@@ -1898,9 +1907,11 @@ export default function LandingPage() {
 
             {/* Scales as you grow */}
             <div className="relative w-64 h-48 sm:w-72 sm:h-52 md:w-48 md:h-48 lg:w-64 lg:h-64 transform hover:scale-105 transition-transform duration-300">
-              <img
+              <Image
                 src="/13.png"
                 alt="Scales as you grow"
+                width={256}
+                height={256}
                 className="w-full h-full object-cover opacity-95 hover:opacity-100 transition-opacity duration-300 rounded-lg"
               />
               {/* Overlaid content - minimal opacity to show image clearly */}
@@ -1941,82 +1952,102 @@ export default function LandingPage() {
             <div className="flex items-center animate-scroll-infinite min-w-max">
               {/* First set */}
               <div className="flex items-center px-3 md:px-6 lg:px-8">
-                <img
+                <Image
                   src="/l1.png"
                   alt="Blockchain 1"
+                  width={40}
+                  height={40}
                   className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
                 />
               </div>
 
               <div className="flex items-center px-3 md:px-6 lg:px-8">
-                <img
+                <Image
                   src="/l2.png"
                   alt="Blockchain 2"
+                  width={40}
+                  height={40}
                   className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
                 />
               </div>
 
               <div className="flex items-center px-3 md:px-6 lg:px-8">
-                <img
+                <Image
                   src="/l3.png"
                   alt="Blockchain 3"
+                  width={40}
+                  height={40}
                   className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
                 />
               </div>
 
               <div className="flex items-center px-3 md:px-6 lg:px-8">
-                <img
+                <Image
                   src="/l4.png"
                   alt="Blockchain 4"
+                  width={40}
+                  height={40}
                   className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
                 />
               </div>
 
               <div className="flex items-center px-3 md:px-6 lg:px-8">
-                <img
+                <Image
                   src="/l5.png"
                   alt="Blockchain 5"
+                  width={40}
+                  height={40}
                   className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
                 />
               </div>
 
               {/* Duplicate set for seamless loop */}
               <div className="flex items-center px-3 md:px-6 lg:px-8">
-                <img
+                <Image
                   src="/l1.png"
                   alt="Blockchain 1"
+                  width={40}
+                  height={40}
                   className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
                 />
               </div>
 
               <div className="flex items-center px-3 md:px-6 lg:px-8">
-                <img
+                <Image
                   src="/l2.png"
                   alt="Blockchain 2"
+                  width={40}
+                  height={40}
                   className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
                 />
               </div>
 
               <div className="flex items-center px-3 md:px-6 lg:px-8">
-                <img
+                <Image
                   src="/l3.png"
                   alt="Blockchain 3"
+                  width={40}
+                  height={40}
                   className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
                 />
               </div>
 
               <div className="flex items-center px-3 md:px-6 lg:px-8">
-                <img
+                <Image
                   src="/l4.png"
                   alt="Blockchain 4"
+                  width={40}
+                  height={40}
                   className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
                 />
               </div>
 
               <div className="flex items-center px-3 md:px-6 lg:px-8">
-                <img
+                <Image
                   src="/l5.png"
                   alt="Blockchain 5"
+                  width={40}
+                  height={40}
                   className="h-6 md:h-8 lg:h-10 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300 object-contain"
                 />
               </div>
@@ -2272,9 +2303,11 @@ export default function LandingPage() {
               <div className="text-center group">
                 <div className="flex justify-center mb-8">
                   <div className="w-32 h-32 lg:w-40 lg:h-40 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                    <img
+                    <Image
                       src="/jk.png"
                       alt="Secured and Decentralized"
+                      width={160}
+                      height={160}
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -2293,9 +2326,11 @@ export default function LandingPage() {
               <div className="text-center group">
                 <div className="flex justify-center mb-8">
                   <div className="w-32 h-32 lg:w-40 lg:h-40 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                    <img
+                    <Image
                       src="/jk1.png"
                       alt="We got you covered"
+                      width={160}
+                      height={160}
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -2316,9 +2351,11 @@ export default function LandingPage() {
               <div className="text-center group max-w-md">
                 <div className="flex justify-center mb-8">
                   <div className="w-32 h-32 lg:w-40 lg:h-40 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                    <img
+                    <Image
                       src="/jk3.png"
                       alt="Optimize your cashflow"
+                      width={160}
+                      height={160}
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -2581,7 +2618,7 @@ export default function LandingPage() {
                 Build Now, Tokenize Later
               </h3>
               <p className="text-gray-700 text-base leading-relaxed">
-                Build your agent and prime it's growth before releasing it's
+                Build your agent and prime its growth before releasing its
                 native token.
               </p>
             </div>
