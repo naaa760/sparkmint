@@ -18,7 +18,7 @@ export default function WalletConnection() {
               Connected
             </span>
             {publicKey && (
-              <span className="text-xs text-gray-400 bg-gray-800 px-2 py-1 rounded">
+              <span className="text-xs text-amber-800 bg-amber-100/80 px-2 py-1 rounded-lg border border-amber-200">
                 {`${publicKey.toString().slice(0, 4)}...${publicKey
                   .toString()
                   .slice(-4)}`}
@@ -44,7 +44,21 @@ export default function WalletConnection() {
 
       {/* Wallet Button */}
       <div className="wallet-adapter-button-trigger">
-        <WalletMultiButton className="!bg-gradient-to-r !from-purple-500 !to-pink-500 hover:!from-purple-600 hover:!to-pink-600 !rounded-lg !transition-all !duration-200 !border-none !text-white !font-medium !text-sm !px-4 !py-2" />
+        <WalletMultiButton
+          style={{
+            backgroundColor: "#fef3c7",
+            backgroundImage: "linear-gradient(to right, #fef3c7, #fef08a)",
+            color: "#78350f",
+            borderRadius: "1rem",
+            border: "none",
+            fontWeight: "500",
+            fontSize: "0.875rem",
+            padding: "0.5rem 1rem",
+            boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+            transition: "all 0.2s ease-in-out",
+          }}
+          className="!bg-gradient-to-r !from-amber-100 !to-yellow-100 hover:!from-amber-200 hover:!to-yellow-200 !rounded-2xl !transition-all !duration-200 !border-none !text-amber-900 !font-medium !text-sm !px-4 !py-2 !shadow-sm hover:!shadow-md [&>*]:!text-amber-900 [&]:hover:!bg-amber-200 [&]:!border-0"
+        />
       </div>
     </div>
   );
