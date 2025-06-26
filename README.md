@@ -1,6 +1,9 @@
 # SparkMint 🪙
 
-A next-generation token creation platform that simplifies cryptocurrency token development on the Solana blockchain.
+## SparkMint - Token Creation Platform
+
+**SparkMint** is a user-friendly web application that allows anyone to create and manage custom cryptocurrency tokens on the Solana blockchain without technical expertise. The platform features an intuitive dashboard where users can connect their wallets, deploy real tokens with customizable properties, and track their transactions in real-time. Built with modern web technologies, it bridges the gap between complex blockchain operations and everyday users, making token creation as simple as filling out a form.
+
 
 ![image](https://github.com/user-attachments/assets/fdd02932-db99-4a84-9f50-50bc6e6eba9a)
 
