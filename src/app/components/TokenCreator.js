@@ -214,10 +214,10 @@ export default function TokenCreator() {
     return (
       <div className="text-center py-12">
         <Coins className="w-16 h-16 text-gray-500 mx-auto mb-4" />
-        <h3 className="text-xl font-semibold text-white mb-2">
+        <h3 className="text-xl font-semibold text-black mb-2">
           Connect Your Wallet
         </h3>
-        <p className="text-gray-400">
+        <p className="text-gray-600">
           You need to connect your wallet to create tokens on the blockchain
         </p>
       </div>
@@ -230,7 +230,7 @@ export default function TokenCreator() {
         <div className="grid md:grid-cols-2 gap-6">
           {/* Token Name */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-black mb-2">
               Token Name *
             </label>
             <input
@@ -239,14 +239,14 @@ export default function TokenCreator() {
               value={formData.name}
               onChange={handleInputChange}
               placeholder="My Amazing Token"
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-colors"
+              className="w-full bg-white/80 backdrop-blur-sm rounded-lg px-4 py-3 text-black placeholder-gray-500 focus:bg-white/90 focus:ring-1 focus:ring-blue-500/50 outline-none transition-all"
               required
             />
           </div>
 
           {/* Token Symbol */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-black mb-2">
               Token Symbol *
             </label>
             <input
@@ -255,7 +255,7 @@ export default function TokenCreator() {
               value={formData.symbol}
               onChange={handleInputChange}
               placeholder="MAT"
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-colors uppercase"
+              className="w-full bg-white/80 backdrop-blur-sm rounded-lg px-4 py-3 text-black placeholder-gray-500 focus:bg-white/90 focus:ring-1 focus:ring-blue-500/50 outline-none transition-all uppercase"
               maxLength="10"
               required
             />
@@ -263,7 +263,7 @@ export default function TokenCreator() {
 
           {/* Decimals */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-black mb-2">
               Decimals
             </label>
             <input
@@ -273,16 +273,16 @@ export default function TokenCreator() {
               onChange={handleInputChange}
               min="0"
               max="18"
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-colors"
+              className="w-full bg-white/80 backdrop-blur-sm rounded-lg px-4 py-3 text-black placeholder-gray-500 focus:bg-white/90 focus:ring-1 focus:ring-blue-500/50 outline-none transition-all"
             />
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-gray-600 mt-1">
               Number of decimal places (0-18)
             </p>
           </div>
 
           {/* Initial Supply */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-black mb-2">
               Initial Supply
             </label>
             <input
@@ -291,9 +291,9 @@ export default function TokenCreator() {
               value={formData.initialSupply}
               onChange={handleInputChange}
               min="0"
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-colors"
+              className="w-full bg-white/80 backdrop-blur-sm rounded-lg px-4 py-3 text-black placeholder-gray-500 focus:bg-white/90 focus:ring-1 focus:ring-blue-500/50 outline-none transition-all"
             />
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-gray-600 mt-1">
               Initial tokens to mint to your wallet
             </p>
           </div>
@@ -301,7 +301,7 @@ export default function TokenCreator() {
 
         {/* Description */}
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-black mb-2">
             Description (Optional)
           </label>
           <textarea
@@ -310,13 +310,13 @@ export default function TokenCreator() {
             onChange={handleInputChange}
             placeholder="Describe your token..."
             rows="3"
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-colors resize-none"
+            className="w-full bg-white/80 backdrop-blur-sm rounded-lg px-4 py-3 text-black placeholder-gray-500 focus:bg-white/90 focus:ring-1 focus:ring-blue-500/50 outline-none transition-all resize-none"
           />
         </div>
 
         {/* Error Message */}
         {error && (
-          <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-4 flex items-start space-x-3">
+          <div className="bg-red-500/10 backdrop-blur-sm rounded-lg p-4 flex items-start space-x-3">
             <AlertCircle className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
             <p className="text-red-400 text-sm">{error}</p>
           </div>
@@ -324,7 +324,7 @@ export default function TokenCreator() {
 
         {/* Success Message */}
         {success && (
-          <div className="bg-green-500/20 border border-green-500/50 rounded-lg p-4">
+          <div className="bg-green-500/10 backdrop-blur-sm rounded-lg p-4">
             <div className="flex items-start space-x-3">
               <Check className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
               <div className="flex-1">
@@ -332,15 +332,15 @@ export default function TokenCreator() {
                   {success.message}
                 </p>
                 <div className="space-y-1 text-sm">
-                  <p className="text-gray-300">
-                    <span className="text-gray-400">Mint Address:</span>{" "}
-                    <code className="bg-gray-800 px-2 py-1 rounded text-green-400 break-all">
+                  <p className="text-black">
+                    <span className="text-gray-600">Mint Address:</span>{" "}
+                    <code className="bg-gray-200/50 px-2 py-1 rounded text-green-600 break-all">
                       {success.mintAddress}
                     </code>
                   </p>
-                  <p className="text-gray-300">
-                    <span className="text-gray-400">Token Account:</span>{" "}
-                    <code className="bg-gray-800 px-2 py-1 rounded text-green-400 break-all">
+                  <p className="text-black">
+                    <span className="text-gray-600">Token Account:</span>{" "}
+                    <code className="bg-gray-200/50 px-2 py-1 rounded text-green-600 break-all">
                       {success.tokenAccount}
                     </code>
                   </p>
@@ -349,19 +349,19 @@ export default function TokenCreator() {
                       href={success.explorerUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-400 hover:text-blue-300 underline text-sm"
+                      className="text-blue-600 hover:text-blue-700 underline text-sm"
                     >
                       View on Solana Explorer →
                     </a>
                   </div>
                   {success.note && (
-                    <p className="text-green-400 text-xs mt-2">
+                    <p className="text-green-600 text-xs mt-2">
                       {success.note}
                     </p>
                   )}
                 </div>
                 <div className="mt-3 text-sm">
-                  <p className="text-green-300">
+                  <p className="text-green-600">
                     ✓ Token created on blockchain and added to your wallet
                     balance
                   </p>
@@ -371,11 +371,11 @@ export default function TokenCreator() {
           </div>
         )}
 
-        {/* Submit Button */}
+        {/* Submit Button - Changed to light beige */}
         <button
           type="submit"
           disabled={creating || !connected}
-          className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-6 rounded-lg font-semibold hover:from-purple-600 hover:to-pink-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2"
+          className="w-full bg-gradient-to-r from-amber-100/80 to-yellow-100/80 backdrop-blur-sm text-amber-900 py-4 px-6 rounded-lg font-semibold hover:from-amber-200/80 hover:to-yellow-200/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2"
         >
           {creating ? (
             <>
@@ -392,11 +392,11 @@ export default function TokenCreator() {
       </form>
 
       {/* Information Box */}
-      <div className="mt-8 bg-blue-500/20 border border-blue-500/50 rounded-lg p-4">
-        <h4 className="text-blue-400 font-medium mb-2">
+      <div className="mt-8 bg-white/70 backdrop-blur-sm rounded-lg p-4 shadow-sm">
+        <h4 className="text-black font-medium mb-2">
           Blockchain Token Creation
         </h4>
-        <ul className="text-blue-300 text-sm space-y-1">
+        <ul className="text-black text-sm space-y-1 opacity-80">
           <li>
             • Requires ~0.002 SOL for mint account creation and transaction fees
           </li>

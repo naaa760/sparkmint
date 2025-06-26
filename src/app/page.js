@@ -1007,6 +1007,94 @@ export default function LandingPage() {
           border-radius: 50%;
           filter: blur(1px);
         }
+
+        @keyframes floatUp {
+          0% {
+            transform: translateY(0px) rotate(0deg);
+            opacity: 0.3;
+          }
+          50% {
+            transform: translateY(-10px) rotate(180deg);
+            opacity: 0.7;
+          }
+          100% {
+            transform: translateY(-20px) rotate(360deg);
+            opacity: 0.3;
+          }
+        }
+
+        @keyframes pulseGlow {
+          0%,
+          100% {
+            opacity: 0.2;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.6;
+            transform: scale(1.1);
+          }
+        }
+
+        @keyframes neuralPulse {
+          0%,
+          100% {
+            stroke-dashoffset: 0;
+            opacity: 0.3;
+          }
+          50% {
+            stroke-dashoffset: 10;
+            opacity: 0.8;
+          }
+        }
+
+        @keyframes dataFlow {
+          0% {
+            transform: translateX(-100px) translateY(0px);
+            opacity: 0;
+          }
+          25% {
+            opacity: 0.8;
+          }
+          75% {
+            opacity: 0.8;
+          }
+          100% {
+            transform: translateX(100px) translateY(-10px);
+            opacity: 0;
+          }
+        }
+
+        @keyframes techGlow {
+          0%,
+          100% {
+            box-shadow: 0 0 5px rgba(99, 102, 241, 0.3);
+            filter: brightness(1);
+          }
+          50% {
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+            filter: brightness(1.3);
+          }
+        }
+
+        .animate-float-up {
+          animation: floatUp 8s ease-in-out infinite;
+        }
+
+        .animate-pulse-glow {
+          animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        .animate-neural-pulse {
+          animation: neuralPulse 4s ease-in-out infinite;
+        }
+
+        .animate-data-flow {
+          animation: dataFlow 6s ease-in-out infinite;
+        }
+
+        .animate-tech-glow {
+          animation: techGlow 4s ease-in-out infinite;
+        }
       `}</style>
 
       {/* Splash Screen */}
@@ -1567,9 +1655,9 @@ export default function LandingPage() {
 
         {/* Enhanced Sticky Navbar */}
         <nav
-          className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 transition-all duration-500 ${
+          className={`fixed top-4 left-4 right-4 z-50 px-6 py-4 rounded-xl transition-all duration-500 ${
             scrolled
-              ? "bg-white/95 backdrop-blur-xl border-b border-amber-200/50 shadow-lg shadow-amber-100/20"
+              ? "bg-white/95 backdrop-blur-xl border border-amber-200/50 shadow-lg shadow-amber-100/20"
               : "bg-transparent"
           }`}
         >
@@ -2132,7 +2220,7 @@ export default function LandingPage() {
       </div>
 
       {/* AI for investors Section */}
-      <div className="relative z-10 py-20 px-6 bg-white overflow-hidden">
+      <div className="relative z-10 py-20 px-6 bg-gradient-to-br from-yellow-100 via-amber-100 to-white overflow-hidden">
         {/* Smooth transition from previous section */}
         <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-gray-100/20 via-white/40 to-transparent z-20"></div>
 
@@ -2283,8 +2371,8 @@ export default function LandingPage() {
             {/* Right Content - Video */}
             <div className="relative flex justify-center lg:justify-end">
               <div className="relative">
-                {/* Video Container */}
-                <div className="w-80 h-96 rounded-3xl shadow-2xl">
+                {/* Video Container - Made much wider and taller */}
+                <div className="w-96 md:w-[500px] lg:w-[600px] xl:w-[700px] h-[500px] md:h-[650px] lg:h-[750px] xl:h-[800px] rounded-3xl shadow-2xl">
                   <video
                     autoPlay
                     loop
@@ -2306,406 +2394,221 @@ export default function LandingPage() {
       </div>
 
       {/* Simple, fast & secure Section - NEW SECTION */}
-      <div className="relative z-10 py-32 px-6 bg-gradient-to-br from-purple-50 via-white to-blue-50 overflow-hidden">
+      <div className="relative z-10 py-32 px-6 bg-gradient-to-br from-yellow-100 via-amber-100 to-white overflow-hidden">
         {/* Smooth transition to next section */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-purple-50/50 to-transparent opacity-60 z-20"></div>
 
-        {/* Partial Grid Pattern Areas */}
+        {/* Enhanced Partial Grid Pattern Areas with Animation */}
         <div className="absolute inset-0">
-          {/* Top Left Grid Area - Diagonal */}
+          {/* Top Left Grid Area - Diagonal with floating effect */}
           <div
-            className="absolute top-0 left-0 w-80 h-80 opacity-30 transform rotate-45"
+            className="absolute top-0 left-0 w-80 h-80 opacity-25 transform rotate-45 animate-pulse"
             style={{
               backgroundImage: `
-                linear-gradient(rgba(192, 192, 192, 0.6) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(192, 192, 192, 0.6) 1px, transparent 1px)
+                linear-gradient(rgba(147, 51, 234, 0.4) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(147, 51, 234, 0.4) 1px, transparent 1px),
+                radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 2px, transparent 2px)
               `,
-              backgroundSize: "30px 30px",
-              filter: "drop-shadow(0 0 2px rgba(255, 255, 255, 0.5))",
+              backgroundSize: "30px 30px, 30px 30px, 60px 60px",
+              filter: "drop-shadow(0 0 3px rgba(147, 51, 234, 0.3))",
+              animationDelay: "0s",
             }}
           ></div>
 
-          {/* Top Right Grid Area - Diagonal */}
+          {/* Top Right Grid Area - Diagonal with enhanced colors */}
           <div
-            className="absolute top-0 right-0 w-96 h-96 opacity-25 transform -rotate-45"
+            className="absolute top-0 right-0 w-96 h-96 opacity-30 transform -rotate-45 animate-pulse"
             style={{
               backgroundImage: `
-                linear-gradient(rgba(169, 169, 169, 0.5) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(169, 169, 169, 0.5) 1px, transparent 1px)
+                linear-gradient(rgba(59, 130, 246, 0.5) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.5) 1px, transparent 1px),
+                radial-gradient(circle at center, rgba(139, 92, 246, 0.2) 1.5px, transparent 1.5px)
               `,
-              backgroundSize: "25px 25px",
-              filter: "drop-shadow(0 0 3px rgba(255, 255, 255, 0.4))",
+              backgroundSize: "25px 25px, 25px 25px, 50px 50px",
+              filter: "drop-shadow(0 0 4px rgba(59, 130, 246, 0.3))",
+              animationDelay: "1s",
             }}
           ></div>
 
-          {/* Bottom Center Grid Area - Diagonal */}
+          {/* Bottom Center Grid Area with enhanced animation */}
           <div
-            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-72 h-64 opacity-25 rotate-12"
+            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-72 h-64 opacity-20 rotate-12 animate-pulse"
             style={{
               backgroundImage: `
-                linear-gradient(rgba(211, 211, 211, 0.6) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(211, 211, 211, 0.6) 1px, transparent 1px)
+                linear-gradient(rgba(99, 102, 241, 0.6) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.6) 1px, transparent 1px),
+                radial-gradient(circle at center, rgba(147, 51, 234, 0.25) 3px, transparent 3px)
               `,
-              backgroundSize: "35px 35px",
-              filter: "drop-shadow(0 0 2px rgba(255, 255, 255, 0.6))",
+              backgroundSize: "35px 35px, 35px 35px, 70px 70px",
+              filter: "drop-shadow(0 0 2px rgba(99, 102, 241, 0.4))",
+              animationDelay: "2s",
             }}
           ></div>
 
-          {/* Small Grid Pattern Behind Title - Diagonal */}
+          {/* Enhanced Small Grid Pattern Behind Title */}
           <div
-            className="absolute top-16 left-1/2 transform -translate-x-1/2 w-96 h-32 opacity-20 rotate-30"
+            className="absolute top-16 left-1/2 transform -translate-x-1/2 w-96 h-32 opacity-15 rotate-30 animate-pulse"
             style={{
-              backgroundImage: `radial-gradient(circle, rgba(192, 192, 192, 0.5) 2px, transparent 2px)`,
-              backgroundSize: "20px 20px",
-              filter: "drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))",
+              backgroundImage: `
+                radial-gradient(circle, rgba(139, 92, 246, 0.4) 2px, transparent 2px),
+                radial-gradient(circle, rgba(59, 130, 246, 0.3) 1px, transparent 1px)
+              `,
+              backgroundSize: "20px 20px, 40px 40px",
+              backgroundPosition: "0 0, 10px 10px",
+              filter: "drop-shadow(0 0 1px rgba(139, 92, 246, 0.6))",
+              animationDelay: "0.5s",
             }}
           ></div>
         </div>
 
-        <div className="max-w-7xl mx-auto relative z-10">
-          {/* Section Title */}
-          <div className="text-center mb-20">
-            <h2 className="text-5xl lg:text-6xl font-semibold text-gray-800 tracking-tight mb-4">
-              Simple, fast & secure
-            </h2>
-          </div>
-
-          {/* Three Cards Layout - Triangular arrangement */}
-          <div className="relative">
-            {/* Top Row - Two Cards */}
-            <div className="grid md:grid-cols-2 gap-16 lg:gap-24 mb-20 lg:mb-32">
-              {/* Card 1 - Secured and Decentralized */}
-              <div className="text-center group">
-                <div className="flex justify-center mb-8">
-                  <div className="w-32 h-32 lg:w-40 lg:h-40 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                    <Image
-                      src="/jk.png"
-                      alt="Secured and Decentralized"
-                      width={160}
-                      height={160}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                </div>
-                <h3 className="text-2xl lg:text-3xl font-semibold text-gray-800 mb-4">
-                  Secured and Decentralized
-                </h3>
-                <p className="text-gray-600 text-lg leading-relaxed max-w-sm mx-auto">
-                  Experience full spectrum of blockchain features
-                  <br />
-                  with our non-custodial wallet.
-                </p>
-              </div>
-
-              {/* Card 2 - We got you covered */}
-              <div className="text-center group">
-                <div className="flex justify-center mb-8">
-                  <div className="w-32 h-32 lg:w-40 lg:h-40 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                    <Image
-                      src="/jk1.png"
-                      alt="We got you covered"
-                      width={160}
-                      height={160}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                </div>
-                <h3 className="text-2xl lg:text-3xl font-semibold text-gray-800 mb-4">
-                  We got you covered
-                </h3>
-                <p className="text-gray-600 text-lg leading-relaxed max-w-sm mx-auto">
-                  Both Mastercard and Visa cards are supported
-                  <br />
-                  to give you what you need.
-                </p>
-              </div>
-            </div>
-
-            {/* Bottom Row - One Card Centered */}
-            <div className="flex justify-center">
-              <div className="text-center group max-w-md">
-                <div className="flex justify-center mb-8">
-                  <div className="w-32 h-32 lg:w-40 lg:h-40 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                    <Image
-                      src="/jk3.png"
-                      alt="Optimize your cashflow"
-                      width={160}
-                      height={160}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                </div>
-                <h3 className="text-2xl lg:text-3xl font-semibold text-gray-800 mb-4">
-                  Optimize your cashflow
-                </h3>
-                <p className="text-gray-600 text-lg leading-relaxed">
-                  Use our wallet to pay your bills, split bills, transfer and
-                  more. All from one place.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* VIP Program Section */}
-      <div
-        className="relative z-10 pt-32 px-6 overflow-hidden"
-        style={{
-          background:
-            "linear-gradient(135deg, #f5f5dc 0%, #ddbf94 15%, #8b7355 35%, #654321 55%, #2c1810 75%, #1a1a1a 90%, #000000 100%)",
-        }}
-      >
-        {/* Smooth transition from previous section */}
-        <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-blue-50/30 via-purple-50/20 to-transparent z-20"></div>
-
-        {/* Smooth transition to next section */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent via-gray-900/20 to-gray-900/40 z-20"></div>
-
-        {/* Beige Spike/Sleek Line Effects */}
-        <div className="absolute inset-0">
-          {/* Diagonal Spike Lines - Top Left */}
-          <div className="absolute top-0 left-0 w-full h-full">
-            <svg
-              className="absolute top-0 left-0 w-full h-full"
-              viewBox="0 0 1200 800"
-            >
-              {/* Sharp angular lines */}
-              <path
-                d="M 0 100 L 200 50 L 400 150 L 600 80 L 800 200 L 1000 120 L 1200 180"
-                stroke="rgba(245, 245, 220, 0.25)"
-                strokeWidth="2"
-                fill="none"
-                strokeLinecap="round"
-              />
-              <path
-                d="M 0 200 L 300 120 L 500 250 L 700 180 L 900 320 L 1200 280"
-                stroke="rgba(139, 69, 19, 0.2)"
-                strokeWidth="1.5"
-                fill="none"
-                strokeLinecap="round"
-              />
-              <path
-                d="M 0 350 L 250 280 L 450 400 L 650 320 L 850 450 L 1200 420"
-                stroke="rgba(160, 82, 45, 0.15)"
-                strokeWidth="1"
-                fill="none"
-                strokeLinecap="round"
-              />
-            </svg>
-          </div>
-
-          {/* Diagonal Spike Lines - Bottom Right */}
-          <div className="absolute bottom-0 right-0 w-full h-full">
-            <svg
-              className="absolute bottom-0 right-0 w-full h-full transform rotate-180"
-              viewBox="0 0 1200 800"
-            >
-              <path
-                d="M 0 100 L 200 50 L 400 150 L 600 80 L 800 200 L 1000 120 L 1200 180"
-                stroke="rgba(245, 245, 220, 0.18)"
-                strokeWidth="2"
-                fill="none"
-                strokeLinecap="round"
-              />
-              <path
-                d="M 0 200 L 300 120 L 500 250 L 700 180 L 900 320 L 1200 280"
-                stroke="rgba(139, 69, 19, 0.12)"
-                strokeWidth="1.5"
-                fill="none"
-                strokeLinecap="round"
-              />
-            </svg>
-          </div>
-
-          {/* Scattered Beige Dots */}
-          <div className="absolute inset-0">
-            <div
-              className="absolute top-20 left-20 w-2 h-2 bg-beige-200 rounded-full"
-              style={{ backgroundColor: "rgba(245, 245, 220, 0.3)" }}
-            ></div>
-            <div
-              className="absolute top-40 right-32 w-1 h-1 bg-beige-200 rounded-full"
-              style={{ backgroundColor: "rgba(139, 69, 19, 0.25)" }}
-            ></div>
-            <div
-              className="absolute bottom-32 left-40 w-1.5 h-1.5 bg-beige-200 rounded-full"
-              style={{ backgroundColor: "rgba(160, 82, 45, 0.28)" }}
-            ></div>
-            <div
-              className="absolute bottom-20 right-20 w-2 h-2 bg-beige-200 rounded-full"
-              style={{ backgroundColor: "rgba(245, 245, 220, 0.22)" }}
-            ></div>
-            <div
-              className="absolute top-1/2 left-1/4 w-1 h-1 bg-beige-200 rounded-full"
-              style={{ backgroundColor: "rgba(139, 69, 19, 0.2)" }}
-            ></div>
-            <div
-              className="absolute top-1/3 right-1/4 w-1.5 h-1.5 bg-beige-200 rounded-full"
-              style={{ backgroundColor: "rgba(160, 82, 45, 0.24)" }}
-            ></div>
-          </div>
-
-          {/* Subtle Gradient Overlay */}
+        {/* Enhanced Floating Particles */}
+        <div className="absolute inset-0 opacity-25">
+          {/* Sophisticated particle system */}
           <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse at center, rgba(245, 245, 220, 0.05) 0%, transparent 70%)",
-            }}
+            className="absolute top-20 left-20 w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse"
+            style={{ animationDelay: "0s" }}
+          ></div>
+          <div
+            className="absolute top-32 left-40 w-2 h-2 bg-blue-500 rounded-full animate-pulse"
+            style={{ animationDelay: "0.4s" }}
+          ></div>
+          <div
+            className="absolute top-44 left-60 w-1 h-1 bg-indigo-400 rounded-full animate-pulse"
+            style={{ animationDelay: "0.8s" }}
+          ></div>
+          <div
+            className="absolute top-56 left-80 w-2.5 h-2.5 bg-violet-500 rounded-full animate-pulse"
+            style={{ animationDelay: "1.2s" }}
+          ></div>
+          <div
+            className="absolute top-68 left-100 w-1 h-1 bg-purple-600 rounded-full animate-pulse"
+            style={{ animationDelay: "1.6s" }}
+          ></div>
+
+          <div
+            className="absolute top-24 right-24 w-2 h-2 bg-blue-400 rounded-full animate-pulse"
+            style={{ animationDelay: "0.2s" }}
+          ></div>
+          <div
+            className="absolute top-36 right-44 w-1 h-1 bg-purple-500 rounded-full animate-pulse"
+            style={{ animationDelay: "0.6s" }}
+          ></div>
+          <div
+            className="absolute top-48 right-64 w-2.5 h-2.5 bg-indigo-500 rounded-full animate-pulse"
+            style={{ animationDelay: "1s" }}
+          ></div>
+          <div
+            className="absolute top-60 right-84 w-1.5 h-1.5 bg-violet-400 rounded-full animate-pulse"
+            style={{ animationDelay: "1.4s" }}
+          ></div>
+          <div
+            className="absolute top-72 right-104 w-2 h-2 bg-blue-600 rounded-full animate-pulse"
+            style={{ animationDelay: "1.8s" }}
+          ></div>
+
+          <div
+            className="absolute bottom-20 left-28 w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse"
+            style={{ animationDelay: "0.5s" }}
+          ></div>
+          <div
+            className="absolute bottom-32 left-48 w-2 h-2 bg-blue-500 rounded-full animate-pulse"
+            style={{ animationDelay: "0.9s" }}
+          ></div>
+          <div
+            className="absolute bottom-44 left-68 w-1 h-1 bg-indigo-400 rounded-full animate-pulse"
+            style={{ animationDelay: "1.3s" }}
+          ></div>
+          <div
+            className="absolute bottom-56 left-88 w-2.5 h-2.5 bg-violet-500 rounded-full animate-pulse"
+            style={{ animationDelay: "1.7s" }}
+          ></div>
+
+          <div
+            className="absolute bottom-24 right-32 w-2 h-2 bg-blue-400 rounded-full animate-pulse"
+            style={{ animationDelay: "0.3s" }}
+          ></div>
+          <div
+            className="absolute bottom-36 right-52 w-1 h-1 bg-purple-500 rounded-full animate-pulse"
+            style={{ animationDelay: "0.7s" }}
+          ></div>
+          <div
+            className="absolute bottom-48 right-72 w-2.5 h-2.5 bg-indigo-500 rounded-full animate-pulse"
+            style={{ animationDelay: "1.1s" }}
+          ></div>
+          <div
+            className="absolute bottom-60 right-92 w-1.5 h-1.5 bg-violet-400 rounded-full animate-pulse"
+            style={{ animationDelay: "1.5s" }}
+          ></div>
+
+          {/* Central area particles for depth */}
+          <div
+            className="absolute top-1/4 left-1/3 w-1.5 h-1.5 bg-purple-300 rounded-full animate-pulse"
+            style={{ animationDelay: "2s" }}
+          ></div>
+          <div
+            className="absolute top-1/2 left-1/4 w-2 h-2 bg-blue-300 rounded-full animate-pulse"
+            style={{ animationDelay: "2.4s" }}
+          ></div>
+          <div
+            className="absolute top-3/4 left-1/2 w-1 h-1 bg-indigo-300 rounded-full animate-pulse"
+            style={{ animationDelay: "2.8s" }}
+          ></div>
+          <div
+            className="absolute top-1/3 right-1/3 w-2.5 h-2.5 bg-violet-300 rounded-full animate-pulse"
+            style={{ animationDelay: "0.1s" }}
+          ></div>
+          <div
+            className="absolute top-2/3 right-1/4 w-1.5 h-1.5 bg-purple-500 rounded-full animate-pulse"
+            style={{ animationDelay: "0.9s" }}
+          ></div>
+          <div
+            className="absolute top-1/2 right-1/2 w-2 h-2 bg-blue-500 rounded-full animate-pulse"
+            style={{ animationDelay: "1.5s" }}
           ></div>
         </div>
 
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center">
-            {/* VIP Program Label */}
-            <div className="mb-8">
-              <span className="text-gray-300 text-lg font-medium tracking-wide">
-                VIP program
-              </span>
-            </div>
-
-            {/* Main Title */}
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-8 leading-tight max-w-4xl mx-auto">
-              When you need more than
-              <br />
-              just a crypto exchange
-            </h2>
-
-            {/* Subtitle */}
-            <p className="text-gray-200 text-lg lg:text-xl mb-16 max-w-3xl mx-auto leading-relaxed">
-              Access world-class APIs, a lower fee structure and a dedicated
-              Account Manager.
-            </p>
-
-            {/* Three Features */}
-          </div>
+        {/* Enhanced Geometric Shapes */}
+        <div className="absolute inset-0 opacity-12">
+          <div
+            className="absolute top-32 left-1/5 w-12 h-12 border-2 border-purple-400 transform rotate-45 animate-pulse"
+            style={{ animationDelay: "0s" }}
+          ></div>
+          <div
+            className="absolute top-48 right-1/5 w-8 h-8 border-2 border-blue-500 rounded-full animate-pulse"
+            style={{ animationDelay: "0.8s" }}
+          ></div>
+          <div
+            className="absolute bottom-32 left-1/4 w-16 h-4 border-2 border-indigo-400 animate-pulse"
+            style={{ animationDelay: "1.6s" }}
+          ></div>
+          <div
+            className="absolute bottom-48 right-1/4 w-10 h-10 border-2 border-violet-500 transform rotate-12 animate-pulse"
+            style={{ animationDelay: "2.4s" }}
+          ></div>
+          <div
+            className="absolute top-1/2 left-1/6 w-6 h-14 border-2 border-purple-300 animate-pulse"
+            style={{ animationDelay: "3.2s" }}
+          ></div>
+          <div
+            className="absolute top-2/3 right-1/6 w-14 h-6 border-2 border-blue-400 transform rotate-30 animate-pulse"
+            style={{ animationDelay: "0.4s" }}
+          ></div>
         </div>
-      </div>
 
-      {/* One-Click Agent Deployment Section */}
-      <div className="relative z-10 py-32 px-6 bg-gray-50 overflow-hidden">
-        {/* Limited Grid Background Pattern - Top Area Only */}
+        {/* Layered gradient effects for depth */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-100/30 via-transparent to-blue-100/25"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-indigo-50/20 to-violet-50/15"></div>
+        <div className="absolute inset-0 bg-gradient-to-bl from-violet-50/25 via-transparent to-purple-50/25"></div>
+
+        {/* Subtle mesh overlay for texture */}
         <div
-          className="absolute top-0 left-0 right-0 h-1/2 opacity-15"
+          className="absolute inset-0 opacity-5"
           style={{
-            backgroundImage: `
-              linear-gradient(rgba(0, 0, 0, 0.15) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0, 0, 0, 0.15) 1px, transparent 1px)
-            `,
-            backgroundSize: "100px 100px",
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(99, 102, 241, 0.3) 1px, transparent 0)`,
+            backgroundSize: "40px 40px",
           }}
         ></div>
 
-        {/* Secondary Grid Pattern - Bottom Right Corner */}
-        <div
-          className="absolute bottom-0 right-0 w-1/3 h-1/3 opacity-8"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0, 0, 0, 0.2) 1px, transparent 1px)
-            `,
-            backgroundSize: "200px 200px",
-          }}
-        ></div>
-
-        <div className="max-w-6xl mx-auto relative z-10">
-          {/* Section Title */}
-          <div className="text-center mb-20">
-            <h2 className="text-5xl lg:text-6xl leading-tight text-black mb-6">
-              <span className="font-light">One-Click Agent</span>
-              <br />
-              <span className="font-bold">Deployment</span>
-            </h2>
-          </div>
-
-          {/* Three Features Grid */}
-          <div className="grid md:grid-cols-3 gap-16 lg:gap-20 max-w-5xl mx-auto">
-            {/* Instant Tokenization */}
-            <div className="text-left">
-              <div className="mb-6">
-                <svg
-                  className="w-8 h-8 text-black"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-black mb-4">
-                Instant Tokenization
-              </h3>
-              <p className="text-gray-700 text-base leading-relaxed">
-                Create your first tokenized agent in less than 5 minutes.
-              </p>
-            </div>
-
-            {/* Fair Stealth Launch */}
-            <div className="text-left">
-              <div className="mb-6">
-                <svg
-                  className="w-8 h-8 text-black"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-black mb-4">
-                Fair Stealth Launch
-              </h3>
-              <p className="text-gray-700 text-base leading-relaxed">
-                Launch your token with a custom randomization algorithm for
-                maximum launch protection.
-              </p>
-            </div>
-
-            {/* Build Now, Tokenize Later */}
-            <div className="text-left">
-              <div className="mb-6">
-                <svg
-                  className="w-8 h-8 text-black"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M7 11l5-5m0 0l5 5m-5-5v12"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-black mb-4">
-                Build Now, Tokenize Later
-              </h3>
-              <p className="text-gray-700 text-base leading-relaxed">
-                Build your agent and prime its growth before releasing its
-                native token.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Bring AI to Solana Section */}
-      <div
-        className="relative z-10 py-32 px-6 overflow-hidden"
-        style={{ backgroundColor: "#faf9ff" }}
-      >
         <div className="max-w-5xl mx-auto text-center relative z-20">
           {/* Main Title */}
           <h2 className="text-6xl lg:text-7xl leading-tight text-black mb-6">
@@ -2742,23 +2645,333 @@ export default function LandingPage() {
       {/* SEDA Platform Section */}
 
       {/* Payment Website Recreation Section */}
-      <div className="relative z-10 py-20 px-6 bg-white">
-        <div className="max-w-6xl mx-auto">
-          {/* Header with Logo and Title */}
-          <div className="text-center mb-32">
-            {/* Blue Circle Logo */}
-            <div className="flex justify-center mb-12">
-              <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-2xl font-bold">C</span>
-              </div>
+      <div className="relative z-10 py-20 px-6 bg-gradient-to-br from-yellow-100 via-amber-100 to-white overflow-hidden">
+        {/* Professional Background Pattern */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Corporate Grid Pattern */}
+          <div className="absolute inset-0 opacity-8">
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `
+                  linear-gradient(rgba(59, 130, 246, 0.08) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(59, 130, 246, 0.08) 1px, transparent 1px)
+                `,
+                backgroundSize: "80px 80px",
+              }}
+            ></div>
+          </div>
+
+          {/* Geometric Professional Shapes */}
+          <div className="absolute inset-0 opacity-12">
+            {/* Corporate Diamonds */}
+            <div className="absolute top-20 left-20 w-8 h-8 transform rotate-45 border border-blue-300"></div>
+            <div className="absolute top-32 right-24 w-6 h-6 transform rotate-45 border border-blue-400"></div>
+            <div className="absolute bottom-40 left-16 w-10 h-10 transform rotate-45 border border-blue-200"></div>
+            <div className="absolute bottom-24 right-32 w-7 h-7 transform rotate-45 border border-blue-350"></div>
+
+            {/* Professional Rectangles */}
+            <div className="absolute top-1/4 left-1/4 w-16 h-4 border border-gray-300 opacity-60"></div>
+            <div className="absolute top-1/3 right-1/3 w-12 h-3 border border-gray-400 opacity-50"></div>
+            <div className="absolute bottom-1/4 left-1/3 w-20 h-5 border border-gray-300 opacity-60"></div>
+            <div className="absolute bottom-1/3 right-1/4 w-14 h-4 border border-gray-400 opacity-50"></div>
+
+            {/* Corporate Circles */}
+            <div className="absolute top-16 left-1/2 w-12 h-12 border border-blue-300 rounded-full opacity-40"></div>
+            <div className="absolute bottom-20 left-1/2 w-8 h-8 border border-blue-400 rounded-full opacity-50"></div>
+            <div className="absolute top-1/2 left-16 w-10 h-10 border border-gray-300 rounded-full opacity-40"></div>
+            <div className="absolute top-1/2 right-20 w-14 h-14 border border-gray-400 rounded-full opacity-30"></div>
+          </div>
+
+          {/* Financial Network Pattern */}
+          <div className="absolute inset-0 opacity-15">
+            <svg
+              className="absolute inset-0 w-full h-full"
+              viewBox="0 0 1200 800"
+            >
+              {/* Network connections */}
+              <line
+                x1="100"
+                y1="150"
+                x2="300"
+                y2="250"
+                stroke="rgba(59, 130, 246, 0.3)"
+                strokeWidth="1"
+                strokeDasharray="3,3"
+              />
+              <line
+                x1="300"
+                y1="250"
+                x2="500"
+                y2="200"
+                stroke="rgba(59, 130, 246, 0.3)"
+                strokeWidth="1"
+                strokeDasharray="3,3"
+              />
+              <line
+                x1="500"
+                y1="200"
+                x2="700"
+                y2="300"
+                stroke="rgba(59, 130, 246, 0.3)"
+                strokeWidth="1"
+                strokeDasharray="3,3"
+              />
+              <line
+                x1="700"
+                y1="300"
+                x2="900"
+                y2="180"
+                stroke="rgba(59, 130, 246, 0.3)"
+                strokeWidth="1"
+                strokeDasharray="3,3"
+              />
+              <line
+                x1="900"
+                y1="180"
+                x2="1100"
+                y2="250"
+                stroke="rgba(59, 130, 246, 0.3)"
+                strokeWidth="1"
+                strokeDasharray="3,3"
+              />
+
+              <line
+                x1="200"
+                y1="400"
+                x2="400"
+                y2="350"
+                stroke="rgba(99, 102, 241, 0.2)"
+                strokeWidth="1"
+                strokeDasharray="3,3"
+              />
+              <line
+                x1="400"
+                y1="350"
+                x2="600"
+                y2="450"
+                stroke="rgba(99, 102, 241, 0.2)"
+                strokeWidth="1"
+                strokeDasharray="3,3"
+              />
+              <line
+                x1="600"
+                y1="450"
+                x2="800"
+                y2="380"
+                stroke="rgba(99, 102, 241, 0.2)"
+                strokeWidth="1"
+                strokeDasharray="3,3"
+              />
+              <line
+                x1="800"
+                y1="380"
+                x2="1000"
+                y2="420"
+                stroke="rgba(99, 102, 241, 0.2)"
+                strokeWidth="1"
+                strokeDasharray="3,3"
+              />
+
+              <line
+                x1="150"
+                y1="600"
+                x2="350"
+                y2="550"
+                stroke="rgba(59, 130, 246, 0.25)"
+                strokeWidth="1"
+                strokeDasharray="3,3"
+              />
+              <line
+                x1="350"
+                y1="550"
+                x2="550"
+                y2="650"
+                stroke="rgba(59, 130, 246, 0.25)"
+                strokeWidth="1"
+                strokeDasharray="3,3"
+              />
+              <line
+                x1="550"
+                y1="650"
+                x2="750"
+                y2="600"
+                stroke="rgba(59, 130, 246, 0.25)"
+                strokeWidth="1"
+                strokeDasharray="3,3"
+              />
+              <line
+                x1="750"
+                y1="600"
+                x2="950"
+                y2="650"
+                stroke="rgba(59, 130, 246, 0.25)"
+                strokeWidth="1"
+                strokeDasharray="3,3"
+              />
+
+              {/* Network nodes */}
+              <circle cx="100" cy="150" r="3" fill="rgba(59, 130, 246, 0.4)" />
+              <circle cx="300" cy="250" r="3" fill="rgba(59, 130, 246, 0.4)" />
+              <circle cx="500" cy="200" r="3" fill="rgba(59, 130, 246, 0.4)" />
+              <circle cx="700" cy="300" r="3" fill="rgba(59, 130, 246, 0.4)" />
+              <circle cx="900" cy="180" r="3" fill="rgba(59, 130, 246, 0.4)" />
+              <circle cx="1100" cy="250" r="3" fill="rgba(59, 130, 246, 0.4)" />
+
+              <circle
+                cx="200"
+                cy="400"
+                r="2.5"
+                fill="rgba(99, 102, 241, 0.3)"
+              />
+              <circle
+                cx="400"
+                cy="350"
+                r="2.5"
+                fill="rgba(99, 102, 241, 0.3)"
+              />
+              <circle
+                cx="600"
+                cy="450"
+                r="2.5"
+                fill="rgba(99, 102, 241, 0.3)"
+              />
+              <circle
+                cx="800"
+                cy="380"
+                r="2.5"
+                fill="rgba(99, 102, 241, 0.3)"
+              />
+              <circle
+                cx="1000"
+                cy="420"
+                r="2.5"
+                fill="rgba(99, 102, 241, 0.3)"
+              />
+
+              <circle cx="150" cy="600" r="3" fill="rgba(59, 130, 246, 0.35)" />
+              <circle cx="350" cy="550" r="3" fill="rgba(59, 130, 246, 0.35)" />
+              <circle cx="550" cy="650" r="3" fill="rgba(59, 130, 246, 0.35)" />
+              <circle cx="750" cy="600" r="3" fill="rgba(59, 130, 246, 0.35)" />
+              <circle cx="950" cy="650" r="3" fill="rgba(59, 130, 246, 0.35)" />
+            </svg>
+          </div>
+
+          {/* Professional Gradient Waves */}
+          <div className="absolute inset-0 opacity-8">
+            <svg
+              className="absolute bottom-0 w-full h-32"
+              viewBox="0 0 1200 120"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M0,60 Q300,20 600,60 T1200,60 L1200,120 L0,120 Z"
+                fill="rgba(59, 130, 246, 0.1)"
+              />
+              <path
+                d="M0,80 Q400,40 800,80 T1200,80 L1200,120 L0,120 Z"
+                fill="rgba(99, 102, 241, 0.08)"
+              />
+            </svg>
+          </div>
+
+          {/* Corporate Data Visualization Elements */}
+          <div className="absolute inset-0 opacity-10">
+            {/* Bar chart representation */}
+            <div className="absolute top-1/4 left-1/5 flex items-end space-x-1">
+              <div className="w-2 h-8 bg-blue-400"></div>
+              <div className="w-2 h-12 bg-blue-500"></div>
+              <div className="w-2 h-6 bg-blue-400"></div>
+              <div className="w-2 h-10 bg-blue-500"></div>
+              <div className="w-2 h-14 bg-blue-400"></div>
             </div>
 
-            {/* Main Heading */}
-            <h1 className="text-5xl lg:text-6xl font-normal text-black leading-tight max-w-4xl mx-auto">
+            <div className="absolute bottom-1/4 right-1/5 flex items-end space-x-1">
+              <div className="w-2 h-10 bg-gray-400"></div>
+              <div className="w-2 h-8 bg-gray-500"></div>
+              <div className="w-2 h-12 bg-gray-400"></div>
+              <div className="w-2 h-6 bg-gray-500"></div>
+              <div className="w-2 h-9 bg-gray-400"></div>
+            </div>
+
+            {/* Pie chart segments */}
+            <div className="absolute top-1/3 right-1/4 w-16 h-16">
+              <svg viewBox="0 0 42 42" className="w-full h-full">
+                <circle
+                  cx="21"
+                  cy="21"
+                  r="15.915"
+                  fill="transparent"
+                  stroke="rgba(59, 130, 246, 0.3)"
+                  strokeWidth="3"
+                  strokeDasharray="30 70"
+                  strokeDashoffset="0"
+                />
+                <circle
+                  cx="21"
+                  cy="21"
+                  r="15.915"
+                  fill="transparent"
+                  stroke="rgba(99, 102, 241, 0.3)"
+                  strokeWidth="3"
+                  strokeDasharray="25 75"
+                  strokeDashoffset="-30"
+                />
+                <circle
+                  cx="21"
+                  cy="21"
+                  r="15.915"
+                  fill="transparent"
+                  stroke="rgba(156, 163, 175, 0.3)"
+                  strokeWidth="3"
+                  strokeDasharray="45 55"
+                  strokeDashoffset="-55"
+                />
+              </svg>
+            </div>
+          </div>
+
+          {/* Subtle Texture Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-white to-gray-50/20"></div>
+
+          {/* Professional Corner Decorations */}
+          <div className="absolute top-0 left-0 w-32 h-32 opacity-8">
+            <div className="absolute top-4 left-4 w-4 h-0.5 bg-blue-300"></div>
+            <div className="absolute top-4 left-4 w-0.5 h-4 bg-blue-300"></div>
+            <div className="absolute top-8 left-8 w-6 h-0.5 bg-gray-400"></div>
+            <div className="absolute top-8 left-8 w-0.5 h-6 bg-gray-400"></div>
+          </div>
+
+          <div className="absolute top-0 right-0 w-32 h-32 opacity-8">
+            <div className="absolute top-4 right-4 w-4 h-0.5 bg-blue-300"></div>
+            <div className="absolute top-4 right-4 w-0.5 h-4 bg-blue-300"></div>
+            <div className="absolute top-8 right-8 w-6 h-0.5 bg-gray-400"></div>
+            <div className="absolute top-8 right-8 w-0.5 h-6 bg-gray-400"></div>
+          </div>
+
+          <div className="absolute bottom-0 left-0 w-32 h-32 opacity-8">
+            <div className="absolute bottom-4 left-4 w-4 h-0.5 bg-blue-300"></div>
+            <div className="absolute bottom-4 left-4 w-0.5 h-4 bg-blue-300"></div>
+            <div className="absolute bottom-8 left-8 w-6 h-0.5 bg-gray-400"></div>
+            <div className="absolute bottom-8 left-8 w-0.5 h-6 bg-gray-400"></div>
+          </div>
+
+          <div className="absolute bottom-0 right-0 w-32 h-32 opacity-8">
+            <div className="absolute bottom-4 right-4 w-4 h-0.5 bg-blue-300"></div>
+            <div className="absolute bottom-4 right-4 w-0.5 h-4 bg-blue-300"></div>
+            <div className="absolute bottom-8 right-8 w-6 h-0.5 bg-gray-400"></div>
+            <div className="absolute bottom-8 right-8 w-0.5 h-6 bg-gray-400"></div>
+          </div>
+        </div>
+
+        <div className="max-w-6xl mx-auto relative z-10">
+          {/* Section Title */}
+          <div className="text-center mb-20">
+            <h2 className="text-5xl lg:text-6xl leading-tight text-black mb-6">
               Simplifying payments for
               <br />
               web3 businesses.
-            </h1>
+            </h2>
           </div>
 
           {/* Footer Links Section */}

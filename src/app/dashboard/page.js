@@ -21,6 +21,10 @@ import {
   Activity,
   Users,
   Building2,
+  Menu,
+  X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 // Create context for managing demo tokens
@@ -98,6 +102,7 @@ export default function Dashboard() {
   const { isSignedIn, user } = useUser();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("overview");
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   useEffect(() => {
     if (!isSignedIn) {
@@ -140,271 +145,289 @@ export default function Dashboard() {
   return (
     <SolanaWalletProvider>
       <TokenProvider>
-        {/* Professional background */}
-        <div className="fixed inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-br from-stone-50 via-amber-50/30 to-orange-50/20"></div>
-          {/* Subtle decorative elements */}
-          <div className="absolute top-20 left-20 w-1 h-1 bg-amber-800/10 rounded-full"></div>
-          <div className="absolute top-40 right-32 w-1.5 h-1.5 bg-stone-400/15 rounded-full"></div>
-          <div className="absolute bottom-32 left-1/4 w-1 h-1 bg-amber-600/10 rounded-full"></div>
-          <div className="absolute bottom-20 right-1/3 w-1.5 h-1.5 bg-stone-500/10 rounded-full"></div>
-        </div>
-
-        <div className="min-h-screen bg-gradient-to-br from-stone-50 via-amber-50/30 to-orange-50/20 relative">
-          {/* Professional Header */}
-          <header className="bg-white/95 backdrop-blur-sm border-b border-stone-200 shadow-sm sticky top-0 z-50">
-            <div className="container mx-auto px-6 py-4">
+        {/* Beautiful gradient background */}
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50">
+          {/* Transparent Navbar with rounded corners */}
+          <nav className="fixed top-4 left-4 right-4 z-50 bg-white/85 backdrop-blur-xl border border-blue-200/60 rounded-2xl shadow-xl shadow-blue-100/20">
+            <div className="px-6 py-4">
               <div className="flex items-center justify-between">
+                {/* Left side */}
                 <div className="flex items-center space-x-4">
-                  <div className="relative">
-                    <div className="w-12 h-12 bg-gradient-to-br from-amber-600 to-amber-700 rounded-lg flex items-center justify-center shadow-md">
-                      <Building2 className="w-6 h-6 text-white" />
+                  <button
+                    onClick={() => setSidebarOpen(!sidebarOpen)}
+                    className="p-2 hover:bg-blue-100/80 rounded-xl transition-colors"
+                  >
+                    <Menu className="w-5 h-5 text-blue-700" />
+                  </button>
+
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg">
+                      <Building2 className="w-4 h-4 text-white" />
                     </div>
-                  </div>
-                  <div>
-                    <span className="text-2xl font-bold text-stone-800">
+                    <span className="text-lg font-bold text-slate-800">
                       SparkMint
                     </span>
-                    <p className="text-xs text-stone-600 font-medium">
-                      Professional Token Platform
-                    </p>
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-6">
-                  <div className="hidden md:flex items-center space-x-4 px-4 py-2 bg-stone-100 rounded-lg">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-green-600 rounded-full"></div>
-                      <span className="text-sm font-medium text-stone-700">
-                        Connected
-                      </span>
-                    </div>
+                {/* Right side */}
+                <div className="flex items-center space-x-4">
+                  <div className="hidden md:flex items-center space-x-2 px-3 py-1.5 bg-emerald-100/80 rounded-full">
+                    <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
+                    <span className="text-xs font-medium text-emerald-700">
+                      Connected
+                    </span>
                   </div>
+
                   <WalletConnection />
-                  <div className="relative">
-                    <UserButton
-                      afterSignOutUrl="/"
-                      appearance={{
-                        elements: {
-                          avatarBox:
-                            "w-10 h-10 rounded-lg ring-2 ring-stone-200 hover:ring-stone-300 transition-all",
-                        },
-                      }}
-                    />
-                  </div>
+
+                  <UserButton
+                    afterSignOutUrl="/"
+                    appearance={{
+                      elements: {
+                        avatarBox:
+                          "w-8 h-8 rounded-xl ring-2 ring-blue-200 hover:ring-blue-300 transition-all",
+                      },
+                    }}
+                  />
                 </div>
               </div>
             </div>
-          </header>
+          </nav>
 
-          <div className="container mx-auto px-6 py-8">
-            <div className="flex gap-8">
-              {/* Professional Sidebar */}
-              <aside className="w-80 flex-shrink-0">
-                <div className="bg-white/90 backdrop-blur-sm rounded-xl border border-stone-200 shadow-lg p-8 sticky top-24">
-                  {/* User Welcome Section */}
-                  <div className="mb-8 text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-stone-600 to-stone-700 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-md">
-                      <span className="text-2xl font-bold text-white">
+          <div className="flex pt-20">
+            {/* Collapsible Sidebar */}
+            <aside
+              className={`fixed left-4 top-24 bottom-4 z-40 bg-white/90 backdrop-blur-xl border border-blue-200/60 rounded-2xl shadow-xl shadow-blue-100/20 transition-all duration-300 ${
+                sidebarOpen ? "w-72" : "w-16"
+              }`}
+            >
+              <div className="p-4 h-full flex flex-col">
+                {/* Sidebar Toggle */}
+                <div className="flex justify-end mb-4">
+                  <button
+                    onClick={() => setSidebarOpen(!sidebarOpen)}
+                    className="p-2 hover:bg-blue-100/80 rounded-xl transition-colors"
+                  >
+                    {sidebarOpen ? (
+                      <ChevronLeft className="w-4 h-4 text-blue-600" />
+                    ) : (
+                      <ChevronRight className="w-4 h-4 text-blue-600" />
+                    )}
+                  </button>
+                </div>
+
+                {/* User Section */}
+                {sidebarOpen && (
+                  <div className="mb-6 text-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg">
+                      <span className="text-lg font-bold text-white">
                         {user?.firstName?.charAt(0) || "U"}
                       </span>
                     </div>
-                    <h3 className="text-lg font-semibold text-stone-800">
-                      Welcome, {user?.firstName || "User"}
+                    <h3 className="font-semibold text-slate-800 text-sm">
+                      {user?.firstName || "User"}
                     </h3>
-                    <p className="text-stone-600 text-sm">
-                      Manage your token portfolio
-                    </p>
+                    <p className="text-slate-600 text-xs">Token Manager</p>
                   </div>
+                )}
 
-                  {/* Navigation */}
-                  <nav className="space-y-2">
-                    {tabs.map((tab) => (
-                      <button
-                        key={tab.id}
-                        onClick={() => setActiveTab(tab.id)}
-                        className={`w-full group rounded-lg transition-all duration-200 ${
-                          activeTab === tab.id
-                            ? "bg-amber-100 text-amber-800 border border-amber-200 shadow-sm"
-                            : "text-stone-600 hover:text-stone-800 hover:bg-stone-50 border border-transparent"
+                {/* Navigation */}
+                <nav className="space-y-2 flex-1">
+                  {tabs.map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`w-full rounded-xl transition-all duration-200 ${
+                        activeTab === tab.id
+                          ? "bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-800 border border-blue-200 shadow-sm"
+                          : "text-slate-600 hover:text-slate-800 hover:bg-blue-50/80"
+                      } ${sidebarOpen ? "p-3" : "p-2"}`}
+                      title={!sidebarOpen ? tab.label : ""}
+                    >
+                      <div
+                        className={`flex items-center ${
+                          sidebarOpen ? "space-x-3" : "justify-center"
                         }`}
                       >
-                        <div className="flex items-center space-x-3 px-4 py-3">
-                          <div
-                            className={`p-2 rounded-md ${
-                              activeTab === tab.id
-                                ? "bg-amber-200 text-amber-700"
-                                : "bg-stone-100 text-stone-600 group-hover:bg-stone-200"
-                            } transition-all duration-200`}
-                          >
-                            <tab.icon className="w-4 h-4" />
-                          </div>
-                          <span className="font-medium text-left">
+                        <div
+                          className={`${
+                            activeTab === tab.id
+                              ? "text-blue-600"
+                              : "text-slate-500"
+                          } transition-colors`}
+                        >
+                          <tab.icon className="w-4 h-4" />
+                        </div>
+                        {sidebarOpen && (
+                          <span className="font-medium text-sm">
                             {tab.label}
                           </span>
-                        </div>
-                      </button>
-                    ))}
-                  </nav>
+                        )}
+                      </div>
+                    </button>
+                  ))}
+                </nav>
 
-                  {/* Stats Section */}
-                  <div className="mt-8 p-6 bg-stone-50 rounded-xl border border-stone-200">
-                    <h4 className="text-sm font-semibold text-stone-800 mb-4 flex items-center">
-                      <TrendingUp className="w-4 h-4 mr-2 text-amber-600" />
-                      Account Summary
+                {/* Stats Section */}
+                {sidebarOpen && (
+                  <div className="mt-4 p-4 bg-gradient-to-br from-blue-50/80 to-cyan-50/80 rounded-xl border border-blue-200/50 shadow-sm">
+                    <h4 className="text-xs font-semibold text-slate-800 mb-3 flex items-center">
+                      <TrendingUp className="w-3 h-3 mr-2 text-blue-600" />
+                      Summary
                     </h4>
-                    <div className="space-y-3">
+                    <div className="space-y-2">
                       <div className="flex justify-between items-center">
-                        <span className="text-stone-600 text-sm">
-                          Total Tokens
+                        <span className="text-slate-600 text-xs">Tokens</span>
+                        <span className="font-semibold text-slate-800 text-xs">
+                          3
                         </span>
-                        <span className="font-semibold text-stone-800">3</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-stone-600 text-sm">
+                        <span className="text-slate-600 text-xs">
                           Transactions
                         </span>
-                        <span className="font-semibold text-stone-800">12</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-stone-600 text-sm">Status</span>
-                        <span className="font-semibold text-green-700">
-                          Active
+                        <span className="font-semibold text-slate-800 text-xs">
+                          12
                         </span>
                       </div>
                     </div>
                   </div>
-                </div>
-              </aside>
+                )}
+              </div>
+            </aside>
 
-              {/* Professional Main Content */}
-              <main className="flex-1">
-                <div className="bg-white/90 backdrop-blur-sm rounded-xl border border-stone-200 shadow-lg overflow-hidden">
-                  {activeTab === "overview" && (
-                    <div className="p-8">
-                      {/* Professional Header */}
-                      <div className="mb-10 pb-6 border-b border-stone-200">
-                        <h1 className="text-3xl font-bold text-stone-800 mb-2">
-                          Dashboard Overview
-                        </h1>
-                        <p className="text-stone-600">
-                          Monitor and manage your token operations
-                        </p>
+            {/* Main Content */}
+            <main
+              className={`flex-1 transition-all duration-300 ${
+                sidebarOpen ? "ml-80" : "ml-24"
+              } mr-4 mb-4`}
+            >
+              <div className="bg-white/90 backdrop-blur-xl border border-blue-200/60 rounded-2xl shadow-xl shadow-blue-100/20 overflow-hidden">
+                {activeTab === "overview" && (
+                  <div className="p-6">
+                    {/* Header */}
+                    <div className="mb-8 pb-4 border-b border-blue-200">
+                      <h1 className="text-2xl font-bold text-slate-800 mb-1">
+                        Dashboard Overview
+                      </h1>
+                      <p className="text-slate-600 text-sm">
+                        Monitor and manage your tokens
+                      </p>
+                    </div>
+
+                    {/* Grid Layout */}
+                    <div className="grid lg:grid-cols-3 gap-6 mb-8">
+                      {/* Wallet Balance */}
+                      <div className="lg:col-span-2">
+                        <WalletBalance />
                       </div>
 
-                      {/* Professional Grid Layout */}
-                      <div className="grid lg:grid-cols-3 gap-8 mb-10">
-                        {/* Wallet Balance Card */}
-                        <div className="lg:col-span-2">
-                          <WalletBalance />
+                      {/* Quick Actions */}
+                      <div className="bg-gradient-to-br from-blue-50/80 to-cyan-50/80 rounded-xl p-4 border border-blue-200/50 shadow-sm">
+                        <h3 className="font-semibold text-slate-800 mb-4 flex items-center text-sm">
+                          <Activity className="w-4 h-4 mr-2 text-blue-600" />
+                          Quick Actions
+                        </h3>
+                        <div className="space-y-2">
+                          {tabs.slice(1).map((tab) => (
+                            <button
+                              key={tab.id}
+                              onClick={() => setActiveTab(tab.id)}
+                              className="w-full bg-white/80 text-slate-700 hover:text-slate-800 border border-blue-200 hover:border-blue-400 hover:bg-blue-50/80 p-2 rounded-lg transition-all duration-200 text-xs font-medium flex items-center justify-center space-x-2 shadow-sm"
+                            >
+                              <tab.icon className="w-3 h-3" />
+                              <span>{tab.label}</span>
+                            </button>
+                          ))}
                         </div>
-
-                        {/* Quick Actions Card */}
-                        <div className="bg-stone-50 rounded-xl p-6 border border-stone-200">
-                          <h3 className="text-lg font-semibold text-stone-800 mb-6 flex items-center">
-                            <Activity className="w-5 h-5 mr-2 text-amber-600" />
-                            Quick Actions
-                          </h3>
-                          <div className="space-y-3">
-                            {tabs.slice(1).map((tab) => (
-                              <button
-                                key={tab.id}
-                                onClick={() => setActiveTab(tab.id)}
-                                className="w-full bg-white text-stone-700 hover:text-stone-800 border border-stone-200 hover:border-amber-300 hover:bg-amber-50 p-3 rounded-lg transition-all duration-200 text-sm font-medium flex items-center justify-center space-x-2 shadow-sm"
-                              >
-                                <tab.icon className="w-4 h-4" />
-                                <span>{tab.label}</span>
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Recent Activity */}
-                      <div className="bg-stone-50 rounded-xl p-8 border border-stone-200">
-                        <div className="flex items-center justify-between mb-6 pb-4 border-b border-stone-200">
-                          <h3 className="text-lg font-semibold text-stone-800 flex items-center">
-                            <History className="w-5 h-5 mr-2 text-amber-600" />
-                            Recent Activity
-                          </h3>
-                          <button
-                            onClick={() => setActiveTab("history")}
-                            className="text-amber-700 hover:text-amber-800 font-medium text-sm hover:underline"
-                          >
-                            View All Transactions
-                          </button>
-                        </div>
-                        <TransactionHistory limit={5} />
                       </div>
                     </div>
-                  )}
 
-                  {activeTab === "create" && (
-                    <div className="p-8">
-                      <div className="mb-10 pb-6 border-b border-stone-200">
-                        <h1 className="text-3xl font-bold text-stone-800 mb-2">
-                          Create New Token
-                        </h1>
-                        <p className="text-stone-600">
-                          Deploy a new token on the blockchain
-                        </p>
+                    {/* Recent Activity */}
+                    <div className="bg-gradient-to-br from-blue-50/80 to-cyan-50/80 rounded-xl p-6 border border-blue-200/50 shadow-sm">
+                      <div className="flex items-center justify-between mb-4 pb-3 border-b border-blue-200">
+                        <h3 className="font-semibold text-slate-800 flex items-center text-sm">
+                          <History className="w-4 h-4 mr-2 text-blue-600" />
+                          Recent Activity
+                        </h3>
+                        <button
+                          onClick={() => setActiveTab("history")}
+                          className="text-blue-700 hover:text-blue-800 font-medium text-xs hover:underline"
+                        >
+                          View All
+                        </button>
                       </div>
-                      <div className="bg-stone-50 rounded-xl p-8 border border-stone-200">
-                        <TokenCreator />
-                      </div>
+                      <TransactionHistory limit={5} />
                     </div>
-                  )}
+                  </div>
+                )}
 
-                  {activeTab === "mint" && (
-                    <div className="p-8">
-                      <div className="mb-10 pb-6 border-b border-stone-200">
-                        <h1 className="text-3xl font-bold text-stone-800 mb-2">
-                          Mint Tokens
-                        </h1>
-                        <p className="text-stone-600">
-                          Increase token supply for existing tokens
-                        </p>
-                      </div>
-                      <div className="bg-stone-50 rounded-xl p-8 border border-stone-200">
-                        <TokenMinter />
-                      </div>
+                {activeTab === "create" && (
+                  <div className="p-6">
+                    <div className="mb-8 pb-4 border-b border-blue-200">
+                      <h1 className="text-2xl font-bold text-slate-800 mb-1">
+                        Create New Token
+                      </h1>
+                      <p className="text-slate-600 text-sm">
+                        Deploy a new token on the blockchain
+                      </p>
                     </div>
-                  )}
+                    <div className="bg-gradient-to-br from-blue-50/80 to-cyan-50/80 rounded-xl p-6 border border-blue-200/50 shadow-sm">
+                      <TokenCreator />
+                    </div>
+                  </div>
+                )}
 
-                  {activeTab === "send" && (
-                    <div className="p-8">
-                      <div className="mb-10 pb-6 border-b border-stone-200">
-                        <h1 className="text-3xl font-bold text-stone-800 mb-2">
-                          Send Tokens
-                        </h1>
-                        <p className="text-stone-600">
-                          Transfer tokens to other addresses
-                        </p>
-                      </div>
-                      <div className="bg-stone-50 rounded-xl p-8 border border-stone-200">
-                        <TokenSender />
-                      </div>
+                {activeTab === "mint" && (
+                  <div className="p-6">
+                    <div className="mb-8 pb-4 border-b border-blue-200">
+                      <h1 className="text-2xl font-bold text-slate-800 mb-1">
+                        Mint Tokens
+                      </h1>
+                      <p className="text-slate-600 text-sm">
+                        Increase token supply for existing tokens
+                      </p>
                     </div>
-                  )}
+                    <div className="bg-gradient-to-br from-blue-50/80 to-cyan-50/80 rounded-xl p-6 border border-blue-200/50 shadow-sm">
+                      <TokenMinter />
+                    </div>
+                  </div>
+                )}
 
-                  {activeTab === "history" && (
-                    <div className="p-8">
-                      <div className="mb-10 pb-6 border-b border-stone-200">
-                        <h1 className="text-3xl font-bold text-stone-800 mb-2">
-                          Transaction History
-                        </h1>
-                        <p className="text-stone-600">
-                          Complete record of all blockchain transactions
-                        </p>
-                      </div>
-                      <div className="bg-stone-50 rounded-xl p-8 border border-stone-200">
-                        <TransactionHistory />
-                      </div>
+                {activeTab === "send" && (
+                  <div className="p-6">
+                    <div className="mb-8 pb-4 border-b border-blue-200">
+                      <h1 className="text-2xl font-bold text-slate-800 mb-1">
+                        Send Tokens
+                      </h1>
+                      <p className="text-slate-600 text-sm">
+                        Transfer tokens to other addresses
+                      </p>
                     </div>
-                  )}
-                </div>
-              </main>
-            </div>
+                    <div className="bg-gradient-to-br from-blue-50/80 to-cyan-50/80 rounded-xl p-6 border border-blue-200/50 shadow-sm">
+                      <TokenSender />
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === "history" && (
+                  <div className="p-6">
+                    <div className="mb-8 pb-4 border-b border-blue-200">
+                      <h1 className="text-2xl font-bold text-slate-800 mb-1">
+                        Transaction History
+                      </h1>
+                      <p className="text-slate-600 text-sm">
+                        Complete record of all blockchain transactions
+                      </p>
+                    </div>
+                    <div className="bg-gradient-to-br from-blue-50/80 to-cyan-50/80 rounded-xl p-6 border border-blue-200/50 shadow-sm">
+                      <TransactionHistory />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </main>
           </div>
         </div>
       </TokenProvider>
