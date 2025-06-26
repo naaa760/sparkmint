@@ -198,7 +198,7 @@ export default function Dashboard() {
           <div className="flex pt-28">
             {/* Collapsible Sidebar */}
             <aside
-              className={`fixed left-4 top-24 bottom-4 z-40 bg-white/90 backdrop-blur-xl border border-blue-200/60 rounded-2xl shadow-xl shadow-blue-100/20 transition-all duration-300 ${
+              className={`fixed left-4 top-32 bottom-4 z-40 bg-white/90 backdrop-blur-xl border border-blue-200/60 rounded-2xl shadow-xl shadow-blue-100/20 transition-all duration-300 ${
                 sidebarOpen ? "w-72" : "w-16"
               }`}
             >
